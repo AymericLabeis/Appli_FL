@@ -15,6 +15,7 @@ $fruit_legume->bindParam(':moisIndex', $moisIndex, PDO::PARAM_INT);
 $fruit_legume->execute();
 $fruits_legumes = $fruit_legume->fetchAll(PDO::FETCH_ASSOC);
 
+
 if (isset($_GET['carte'])) {
   // Requête SQL pour rechercher des recettes en fonction du terme de recherche
   $query = 'SELECT * FROM fruits_legumes WHERE libelle LIKE :searchTerm
@@ -80,10 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </script>
 </head>
 <body>
-  <div id="resultat"></div>
   <header>
     <div class="logo_title">
-      <a  href="index.php"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
+      <a  href="index.php" id="InitialMonth"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
       <h1 class="titre">Mes fruits et légumes de saison</h1>
     </div>
   </header>

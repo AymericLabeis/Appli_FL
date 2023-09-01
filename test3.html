@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changer Couleur Texte</title>
+    <style>
+        /* CSS pour le bouton */
+        .buttonR {
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="RoueSelect">
+        <button class="buttonR janvier" value="01" draggable="true" ondragstart="dragStart(event)"><h2>Janvier</h2></button>
+        <button class="buttonR fevrier" value="02" draggable="true" ondragstart="dragStart(event)"><h2>Février</h2></button>
+        <!-- Autres boutons ici -->
+    </div>
+
+    <script>
+        // Sélectionnez tous les boutons de classe "buttonR"
+        var buttonsRoue = document.querySelectorAll('.buttonR');
+
+        // Fonction pour changer la couleur du texte au clic
+        function changerCouleurTexte() {
+            buttonsRoue.forEach(function(button) {
+                button.addEventListener('click', function () {
+                    button.style.color = 'red'; // Vous pouvez ajuster la couleur selon vos besoins
+                });
+            });
+        }
+
+        // Appelez la fonction pour changer la couleur du texte
+        changerCouleurTexte();
+    </script>
+</body>
+</html>

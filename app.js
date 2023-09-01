@@ -8,26 +8,17 @@ const rotationSpeedFactor = 0.8;
 var activeButton = null;
 var initialX = 0;
 
+document.addEventListener('DOMContentLoaded', function() {
+  var deleteLS = document.getElementById('InitialMonth');
+  deleteLS.addEventListener('click', function(event) {
+  event.preventDefault();
+  localStorage.clear();
+  window.location.href = "index.php";
+  });
+});
+
 // Mettre à jour la liste déroulante avec le mois actuel
 moisActuelList.value = (moisActuel < 10 ? '0' : '') + moisActuel;
-
-function SendListIndex() {
-  var moisListIndex = moisActuelList.value;
-
-  $.ajax({
-    url: 'script.php',
-    type: 'POST',
-    data: { constante_js: moisListIndex },
-    success: function(response) {
-      document.getElementById('resultat').innerHTML = 'Valeur de la constante en PHP : ' + response;
-
-      // Stockez la valeur dans le localStorage
-      localStorage.setItem('constante_php', response);
-    }
-  });
-}
-window.onload = SendListIndex
-
 
 // Position de la roue automatique en fonction du mois actuel
 function CurrentMonthRoue() {
@@ -39,7 +30,7 @@ function CurrentMonthRoue() {
   var initialRotation = 180; // Rotation initiale de la roue
   var currentButtonIndex = (-currentMonthIndex) % 12;
 
-  // Calculer l'angle de rotation pour placer le bouton en bas
+  // Calculer l'angle de rotation pour placer le uttonsRoue en bas
   var degrees = initialRotation + rotationIncrement * currentButtonIndex;
   console.log('degré de rotation de la roue', degrees);
   
@@ -94,7 +85,7 @@ function dragEnd() {
       }
     });
 
-    if (bottomButton) {
+    if (bottomButton) { 
       const monthRoue = bottomButton.value;
       console.log('Index Roue mois', monthRoue);
       document.getElementById('mois').value = monthRoue;
@@ -128,23 +119,19 @@ function retourneCarte(){
     secondeCarte = this;
 }
 
-function afficherRecetteA(element) {
-  var show = element.querySelector('.recetteA');
-  if (show.style.display === 'block') {
-    show.style.display = 'none'; // Masquer div2 si elle est déjà affichée
-  } else {
-    show.style.display = 'block'; // Afficher div2 si elle est cachée
-  }
-  show.focus();
-}
-
 //previsualiser une image editeur
 function previewImage(event) {
   var reader = new FileReader();
   reader.onload = function() {
-    var preview = document.getElementById('preview');
-    preview.src = reader.result;
+  var preview = document.getElementById('preview');
+  preview.src = reader.result;
   };
   reader.readAsDataURL(event.target.files[0]);
 }
+
+
+
+
+
+
 
