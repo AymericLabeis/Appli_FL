@@ -1,25 +1,6 @@
 <?php declare(strict_types=1);
 
 $pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
-
-if (isset($_POST['constante_js'])) {
-  $moisIndex = $_POST['constante_js']; 
-
-  // Requête préparée pour récupérer les fruits et légumes du mois en cours
-  $query = 'SELECT flm.id_fruits_legumes, fl.libelle, fl.img, fl.img_dispo, fl.prix, fl.kilo_piece ,fl.vitamines, fl.mineraux
-            FROM fruits_legumes_mois as flm
-            INNER JOIN fruits_legumes as fl ON fl.id_fruits_legumes = flm.id_fruits_legumes
-            WHERE id_mois = :moisIndex
-            ORDER BY fl.libelle ASC';
-
-  $fruit_legume = $pdo->prepare($query);
-  $fruit_legume->bindParam(':moisIndex', $moisIndex, PDO::PARAM_INT);
-  $fruit_legume->execute();
-  $fruits_legumes = $fruit_legume->fetchAll(PDO::FETCH_ASSOC);
-
-  echo $moisIndex;
-}
-
 $moisIndex = date('n');
 
 // Requête préparée pour récupérer les fruits et légumes du mois en cours
@@ -81,18 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
   }
 }
-/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // Vérifie si la valeur "mois" existe dans la superglobale $_POST
-  if (isset($_POST["mois"])) {
-      $moisSelectionne = $_POST["mois"];
-      $moisIndex = $moisSelectionne;
-      // Utilisez $moisSelectionne comme bon vous semble (par exemple, pour afficher un message)
-      echo "Le mois sélectionné est : " . $moisSelectionne;
-  } else {
-      echo "Aucun mois sélectionné.";
-  }
-}*/
-
 ?>
 <!DOCTYPE html >
 <html lang="fr-FR">
@@ -105,6 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css"> 
+    <script>
+  // Récupérez la valeur de Moisindex depuis PHP et stockez-la dans une variable JavaScript
+  var moisListIndex = <?php echo $Moisindex; ?>;
+</script>
 </head>
 <body>
   <div id="resultat"></div>
@@ -216,23 +189,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </body>
 </html>
 <?php
-// script.php
-
-if (isset($_POST['constante_js'])) {
-  $moisIndex = $_POST['constante_js']; 
-
-  
-  // Requête préparée pour récupérer les fruits et légumes du mois en cours
-  $query = 'SELECT flm.id_fruits_legumes, fl.libelle, fl.img, fl.img_dispo, fl.prix, fl.kilo_piece ,fl.vitamines, fl.mineraux
-            FROM fruits_legumes_mois as flm
-            INNER JOIN fruits_legumes as fl ON fl.id_fruits_legumes = flm.id_fruits_legumes
-            WHERE id_mois = :moisIndex
-            ORDER BY fl.libelle ASC';
-
-  $fruit_legume = $pdo->prepare($query);
-  $fruit_legume->bindParam(':moisIndex', $moisIndex, PDO::PARAM_INT);
-  $fruit_legume->execute();
-  $fruits_legumes = $fruit_legume->fetchAll(PDO::FETCH_ASSOC);
-
-  echo $moisIndex;
-}?>

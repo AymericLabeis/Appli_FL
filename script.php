@@ -1,5 +1,4 @@
 <?php declare(strict_types=1);
-
 $pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
 if (isset($_POST['constante_js'])) {
   $moisIndex = $_POST['constante_js']; 
