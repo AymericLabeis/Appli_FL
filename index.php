@@ -75,10 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css"> 
-    <script>
-  // Récupérez la valeur de Moisindex depuis PHP et stockez-la dans une variable JavaScript
-  var moisListIndex = <?php echo $Moisindex; ?>;
-</script>
 </head>
 <body>
   <header>
@@ -133,9 +129,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button class="buttonR decembre" value="12" draggable="true" ondragstart="dragStart(event)"><h2>Decembre</h2></button>
       </div>
       <div class="fleches">
-      <img class="flecheG" src="ressources/flecheG.png" alt="flèche gauche" onclick="tournerRoue(-30)">
-      <img class="flecheD" src="ressources/flecheD.png" alt="flèche droite" onclick="tournerRoue(30)">
-  </div>
+       <img class="flecheG" src="ressources/flecheG.png" alt="flèche gauche" onclick="tournerRoue(-30)">
+       <img class="flecheD" src="ressources/flecheD.png" alt="flèche droite" onclick="tournerRoue(30)">
+      </div>
+  <!-- Formulaire caché pour envoyer la requête -->
+  <form id="formulaireRecherche" action="index.php" method="POST">
+      <input type="hidden" name="direction" id="direction">
+  </form>
       </div>  
   </nav>
 

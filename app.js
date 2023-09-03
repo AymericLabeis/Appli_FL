@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Mettre à jour la liste déroulante avec le mois actuel
 moisActuelList.value = (moisActuel < 10 ? '0' : '') + moisActuel;
+console.log('Index list', moisActuelList.value);
 
 // Position de la roue automatique en fonction du mois actuel
 function CurrentMonthRoue() {
@@ -38,24 +39,28 @@ function CurrentMonthRoue() {
 }
 // Appelez la fonction pour positionner le mois en cours
 CurrentMonthRoue();
-
+//let moisIndex = <?php echo $moisIndex; ?>; // Récupérer la valeur initiale de moisIndex depuis PHP
 function tournerRoue(degrees) {
   angleRotation += degrees;
   Roue.style.transform = `rotate(${angleRotation}deg)`;
-
   // Augmenter ou diminuer la valeur de l'index de la liste déroulante d'une unité
   if (degrees > 0) {
-    // Augmenter l'index
     moisActuelList.selectedIndex = (moisActuelList.selectedIndex -1 + moisActuelList.length) % moisActuelList.length;
   } else {
-    // Diminuer l'index
-    moisActuelList.selectedIndex = (moisActuelList.selectedIndex + 1 + moisActuelList.length) % moisActuelList.length;
+    moisActuelList.selectedIndex = (moisActuelList.selectedIndex +1 + moisActuelList.length) % moisActuelList.length;
   }
-
   // Stocker la valeur sélectionnée dans le Local Storage
-  //var selectedMonth = moisActuelList.options[moisActuelList.selectedIndex].value;
-  localStorage.setItem('selectedMonth', selectedMonth);
+  localStorage.setItem('selectedMonth', moisActuelList.value);
+  interrogerBaseDeDonnees(direction);
 }
+
+/*function interrogerBaseDeDonnees(direction) {
+  // Remplir la valeur de l'input "direction" dans le formulaire
+  document.getElementById('direction').value = direction;
+  
+  // Soumettre le formulaire
+  document.getElementById('formulaireRecherche').submit();
+}*/
 
 // Détecter l'envoi du formulaire et stocker le mois sélectionné dans le Local Storage
 moisActuelList.addEventListener('change', function () {
@@ -70,7 +75,6 @@ function dragStart(event) {
   document.addEventListener('mousemove', dragMove);
   document.addEventListener('mouseup', dragEnd);
 }
-
 
 function dragMove(event) {
   if (activeButton) {
@@ -117,8 +121,6 @@ function dragEnd() {
   document.removeEventListener('mouseup', dragEnd);
 }
 // affichage des cartes
-
-
 
 let carteRetournee = false;
 let premiereCarte, secondeCarte;
