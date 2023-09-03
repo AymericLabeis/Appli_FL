@@ -15,7 +15,7 @@
 <body>
   <header>
     <div class="logo_title">
-      <a  href="index.html" id="lien-logo"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
+      <a  href="index.html" id="InitialMonth"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
       <h1 class="titre">Mes fruits et légumes de saison</h1>
     </div>
   </header>
@@ -64,7 +64,13 @@
         <button class="buttonR novembre" value="11" draggable="true" ondragstart="dragStart(event)"><h2>Novembre</h2></button>
         <button class="buttonR decembre" value="12" draggable="true" ondragstart="dragStart(event)"><h2>Decembre</h2></button>
       </div>
+      <div class="fleches">
+        <img class="flecheG" src="ressources/flecheG.png" alt="flèche gauche" onclick="tournerRoue(-30)">
+        <img class="flecheD" src="ressources/flecheD.png" alt="flèche droite" onclick="tournerRoue(30)">
     </div>
+    </div>
+    
+    
    </nav>
 
    <div class="container_carte" >

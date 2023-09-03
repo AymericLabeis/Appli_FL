@@ -132,7 +132,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button class="buttonR novembre" value="11" draggable="true" ondragstart="dragStart(event)"><h2>Novembre</h2></button>
         <button class="buttonR decembre" value="12" draggable="true" ondragstart="dragStart(event)"><h2>Decembre</h2></button>
       </div>
-      </div>
+      <div class="fleches">
+      <img class="flecheG" src="ressources/flecheG.png" alt="flèche gauche" onclick="tournerRoue(-30)">
+      <img class="flecheD" src="ressources/flecheD.png" alt="flèche droite" onclick="tournerRoue(30)">
+  </div>
+      </div>  
   </nav>
 
    <div class="container_carte" >

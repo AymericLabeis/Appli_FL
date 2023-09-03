@@ -138,9 +138,6 @@ if (!empty($_POST)) {
         <a href="Recettes.php">Recettes</a>
       </div>
   </footer>
-  
-  <script src="app.js"></script>
-
-  
+  <script src="appRecette.js"></script>
 </body>
 </html>
