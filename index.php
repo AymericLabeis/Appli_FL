@@ -32,38 +32,49 @@ if (isset($_GET['carte'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  if (isset($_POST['action'])) {
+    if (isset($_POST['F_L'])) {
+        $moisList = $_POST['mois'];
+        $action = $_POST['F_L'];
+
+        $query = 'SELECT flm.id_fruits_legumes, fl.libelle, fl.img, fl.img_dispo, fl.prix, fl.kilo_piece, fl.vitamines, fl.mineraux
+                  FROM fruits_legumes_mois as flm
+                  INNER JOIN fruits_legumes as fl ON fl.id_fruits_legumes = flm.id_fruits_legumes
+                  WHERE id_mois = :moisList';
+
+        if ($action === 'Fruit') {
+            $query .= ' AND type="fruit"';
+        } elseif ($action === 'Legume') {
+            $query .= ' AND type="legume"';
+        }
+
+        $query .= ' ORDER BY fl.libelle ASC';
+
+        $fruit_legume = $pdo->prepare($query);
+        $fruit_legume->bindParam(':moisList', $moisList, PDO::PARAM_INT);
+        $fruit_legume->execute();
+        $fruits_legumes = $fruit_legume->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    if (isset($_POST['FL'])) {
+      $action1 = $_POST['FL'];
       $moisList = $_POST['mois'];
-      $action = $_POST['action']; 
-      
-      if ($action === 'Fruit') {
-          $query = 'SELECT flm.id_fruits_legumes, fl.libelle, fl.img, fl.img_dispo, fl.prix, fl.kilo_piece, fl.vitamines, fl.mineraux
-              FROM fruits_legumes_mois as flm
-              INNER JOIN fruits_legumes as fl ON fl.id_fruits_legumes = flm.id_fruits_legumes
-              WHERE id_mois = :moisList AND type="fruit"
-              ORDER BY fl.libelle ASC';
-
-          $fruit_legume = $pdo->prepare($query);
-          $fruit_legume->bindParam(':moisList', $moisList,  PDO::PARAM_INT);
-          $fruit_legume->execute();
-          $fruits_legumes = $fruit_legume->fetchAll(PDO::FETCH_ASSOC);
-
-      } elseif ($action === 'Legume') {
-          $query = 'SELECT flm.id_fruits_legumes, fl.libelle, fl.img, fl.img_dispo, fl.prix, fl.kilo_piece, fl.vitamines, fl.mineraux
-              FROM fruits_legumes_mois as flm
-              INNER JOIN fruits_legumes as fl ON fl.id_fruits_legumes = flm.id_fruits_legumes
-              WHERE id_mois = :moisList AND type="legume"
-              ORDER BY fl.libelle ASC';
-
-          $fruit_legume = $pdo->prepare($query);
-          $fruit_legume->bindParam(':moisList', $moisList,  PDO::PARAM_INT);
-          $fruit_legume->execute();
-          $fruits_legumes = $fruit_legume->fetchAll(PDO::FETCH_ASSOC);
-          
-      }
+  
+      // Requête SQL sans condition
+      $query = 'SELECT flm.id_fruits_legumes, fl.libelle, fl.img, fl.img_dispo, fl.prix, fl.kilo_piece, fl.vitamines, fl.mineraux
+          FROM fruits_legumes_mois as flm
+          INNER JOIN fruits_legumes as fl ON fl.id_fruits_legumes = flm.id_fruits_legumes
+          WHERE id_mois = :moisList
+          ORDER BY fl.libelle ASC';
+  
+      // Exécutez la requête avec la préparation et l'exécution
+      $fruit_legume = $pdo->prepare($query);
+      $fruit_legume->bindParam(':moisList', $moisList, PDO::PARAM_INT);
+      $fruit_legume->execute();
+      $fruits_legumes = $fruit_legume->fetchAll(PDO::FETCH_ASSOC);
   }
 }
 ?>
+
 <!DOCTYPE html >
 <html lang="fr-FR">
 <head>
@@ -93,6 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div> 
        <form class="formFL"  method="post">
         <div class ="button_FL">
+        <button type="submit" src="ressources/flecheG.png" class="flecheG" name="FL" value="month-1"onclick="tournerRoue(-30)"></button>
         <select id="mois" name="mois">
           <option value="01">Janvier</option>
           <option value="02">Février</option>
@@ -107,8 +119,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <option value="11">Novembre</option>
           <option value="12">Décembre</option>
         </select>
-        <button type="submit" id="btnFLR" class="button_F" name="action" value="Fruit">Fruits</button>
-        <button type="submit" id="btnFLR" class="button_L" name="action" value="Legume">Légumes</button>
+        <button type="submit" id="btnFLR" class="button_F" name="F_L" value="Fruit">Fruits</button>
+        <button type="submit" id="btnFLR" class="button_L" name="F_L" value="Legume">Légumes</button>
+        <button type="submit" src="ressources/flecheD.png" class="flecheD" name="FL" value="month+1" onclick="tournerRoue(30)"></button>
        </div>
        </form>
        <div class ="button_Recettes">
@@ -128,14 +141,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button class="buttonR novembre" value="11" draggable="true" ondragstart="dragStart(event)"><h2>Novembre</h2></button>
         <button class="buttonR decembre" value="12" draggable="true" ondragstart="dragStart(event)"><h2>Decembre</h2></button>
       </div>
-      <div class="fleches">
-       <img class="flecheG" src="ressources/flecheG.png" alt="flèche gauche" onclick="tournerRoue(-30)">
-       <img class="flecheD" src="ressources/flecheD.png" alt="flèche droite" onclick="tournerRoue(30)">
-      </div>
-  <!-- Formulaire caché pour envoyer la requête -->
-  <form id="formulaireRecherche" action="index.php" method="POST">
-      <input type="hidden" name="direction" id="direction">
-  </form>
       </div>  
   </nav>
 
@@ -162,9 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               </div>
               <div class="info">
                 <h3>Mineraux:</h3>
-                <p> <?= $fruit_legume['mineraux']?>
-                </p>
-
+                <p> <?= $fruit_legume['mineraux']?></p>         
               </div>
               </div>
             <a href="recettes.php?carte=<?=$fruit_legume['libelle']?>">Idée Recette</a>
@@ -174,7 +177,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <?php endforeach ?>
       <?php endif; ?>
    </div>
-
 
     <footer class="footerMobil">
     <div class="footerL">
@@ -192,4 +194,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <script src="app.js"></script>
 </body>
 </html>
-<?php
+

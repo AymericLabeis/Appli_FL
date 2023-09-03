@@ -7,8 +7,9 @@ const moisActuelList= document.getElementById('mois');
 const rotationSpeedFactor = 0.8; 
 var activeButton = null;
 var initialX = 0;
-var angleRotation = 0; 
-        
+var initialRotation = 180;  
+var angleRotation = 0;
+
 document.addEventListener('DOMContentLoaded', function() {
   var deleteLS = document.getElementById('InitialMonth');
   deleteLS.addEventListener('click', function(event) {
@@ -24,23 +25,28 @@ console.log('Index list', moisActuelList.value);
 
 // Position de la roue automatique en fonction du mois actuel
 function CurrentMonthRoue() {
+ 
   var rotationIncrement = 30;
-  var currentMonthIndex = moisActuel; // Vous devez déclarer moisActuel
+  var currentMonthIndex = moisActuel;
   console.log('Index mois en cours', currentMonthIndex);
 
-  var initialRotation = 180; // Rotation initiale de la roue
   var currentButtonIndex = (-currentMonthIndex) % 12;
-
+  console.log('button index', currentButtonIndex);
+  
   // Calculer l'angle de rotation pour placer le bouton en bas
   var degrees = initialRotation + rotationIncrement * currentButtonIndex;
+  
   Roue.style.transform = 'rotate(' + degrees + 'deg)';
   angleRotation = degrees;
-  console.log('rotation CurrentMonthIndex', degrees);
+  console.log('rotation roue', degrees);
+  
 }
 // Appelez la fonction pour positionner le mois en cours
 CurrentMonthRoue();
-//let moisIndex = <?php echo $moisIndex; ?>; // Récupérer la valeur initiale de moisIndex depuis PHP
+
 function tournerRoue(degrees) {
+  initialRotation = initialRotation - degrees;
+  console.log('initial rot', initialRotation);
   angleRotation += degrees;
   Roue.style.transform = `rotate(${angleRotation}deg)`;
   // Augmenter ou diminuer la valeur de l'index de la liste déroulante d'une unité
@@ -51,16 +57,7 @@ function tournerRoue(degrees) {
   }
   // Stocker la valeur sélectionnée dans le Local Storage
   localStorage.setItem('selectedMonth', moisActuelList.value);
-  interrogerBaseDeDonnees(direction);
 }
-
-/*function interrogerBaseDeDonnees(direction) {
-  // Remplir la valeur de l'input "direction" dans le formulaire
-  document.getElementById('direction').value = direction;
-  
-  // Soumettre le formulaire
-  document.getElementById('formulaireRecherche').submit();
-}*/
 
 // Détecter l'envoi du formulaire et stocker le mois sélectionné dans le Local Storage
 moisActuelList.addEventListener('change', function () {
@@ -96,7 +93,6 @@ function dragEnd() {
   if (activeButton) {
     var bottomButton = null;
     var bottomButtonY = -Infinity;
-
     // Loop through each button in the buttonsRoue array
     buttonsRoue.forEach(function(button) {
       var rect = button.getBoundingClientRect();
@@ -120,8 +116,8 @@ function dragEnd() {
   document.removeEventListener('mousemove', dragMove);
   document.removeEventListener('mouseup', dragEnd);
 }
-// affichage des cartes
 
+// affichage des cartes
 let carteRetournee = false;
 let premiereCarte, secondeCarte;
 let verouillage = false;

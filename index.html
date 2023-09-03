@@ -29,6 +29,7 @@
        </div> 
       <div class ="button_FL">
         <form class="button_FL">
+          <button type="submit" src="ressources/flecheG.png" class="flecheG" name="action1" value="month-1"onclick="tournerRoue(-30)"></button>
          <select id="mois">
           <option value="01">Janvier</option>
           <option value="02">Février</option>
@@ -45,6 +46,8 @@
          </select>
         <button type="submit" id="btnFLR" class="button_F" value="Soumettre">Fruits</button>
         <button type="submit" id="btnFLR" class="button_L" value="Soumettre">Légumes</button>
+        <button type="submit" src="ressources/flecheD.png" class="flecheD" name="action1" value="month+1" onclick="tournerRoue(30)"></button>
+        
       </form>
        </div>
        <div class ="button_Recettes">
@@ -64,21 +67,14 @@
         <button class="buttonR novembre" value="11" draggable="true" ondragstart="dragStart(event)"><h2>Novembre</h2></button>
         <button class="buttonR decembre" value="12" draggable="true" ondragstart="dragStart(event)"><h2>Decembre</h2></button>
       </div>
-      <div class="fleches">
-        <img class="flecheG" src="ressources/flecheG.png" alt="flèche gauche" onclick="tournerRoue(-30)">
-        <img class="flecheD" src="ressources/flecheD.png" alt="flèche droite" onclick="tournerRoue(30)">
     </div>
-    <!-- Formulaire caché pour envoyer la requête -->
-    <form id="formulaireRecherche" action="votre_script.php" method="POST">
-      <input type="hidden" name="direction" id="direction">
-  </form>
-    </div>
-    
-    
    </nav>
 
+  
+  
+</div>
    <div class="container_carte" >
-    <h3>Aucune carte de fruit ou de légume trouvée</h3>
+    <h2 id="moisSelectionne"></h2> 
     <div class="carte">
       <div class="double-face">
           <div class="face">
