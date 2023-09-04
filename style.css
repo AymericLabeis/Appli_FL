@@ -31,7 +31,7 @@ header{
   text-align: center;
   font-size: 2em;
   color: rgb(255, 243, 228);
-  font-family: 'Spicy Rice', Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'paprika', Verdana, Geneva, Tahoma, sans-serif;
   letter-spacing: 5px;
 }
 .footerMobil {
@@ -71,7 +71,7 @@ header{
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color:#a752bd;
+  background-color:#78328b;
 }
 
 /*div logo et titre*/
@@ -158,13 +158,13 @@ nav{
 }
 .flecheG{
   margin-right: 20px;
-  background:url(ressources/flecheG.png) ;
+  background:url(ressources/flecheG1.png) ;
   background-size: 100%;
   border: none;
   cursor: pointer;
   width: 50px;
   height: 50px;
-  opacity: 0.7;
+  opacity: 0.8;
   z-index: 1000;
   }
   .flecheG:hover{
@@ -172,13 +172,13 @@ nav{
   }
   .flecheD{
     margin-left: 20px;
-  background:url(ressources/flecheD.png) ;
+  background:url(ressources/flecheD1.png) ;
   background-size: 100%;
   border: none;
   cursor: pointer;
   width: 50px;
   height: 50px;
-  opacity: 0.7;
+  opacity: 0.8;
   z-index: 1000;
   }
   .flecheD:hover{
@@ -258,12 +258,12 @@ nav{
 }
 .btn_Recettes{
   border: 3px solid rgb(255, 255, 255);
-  background-color:#a752bd;
+  background-color:#78328b;
   padding: 5px 10px;
   z-index: 1000; 
 }
 .btn_Recettes:hover{
-   border-color: rgb(102, 45, 145);
+  border-color:#411b4b;
   color: #ffffff;
 }
 .RoueSelect {
@@ -287,7 +287,6 @@ nav{
   text-align: center;
   border-radius: 25px;
   cursor: grab;
-  user-select: none;
   align-items: center;
   justify-content: center;
   border: 3px solid rgb(255, 255, 255);
@@ -476,7 +475,7 @@ nav{
 .active{
   transform: rotateY(180deg);
 }
-@media screen and (max-width:767px){
+@media screen and (max-width:768px){
    .button_FL select, #btnFLR{
     margin-top: 80px;
      margin-left: 20px;

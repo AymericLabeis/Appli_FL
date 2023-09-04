@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $query .= ' ORDER BY fl.libelle ASC';
 
+        //usleep(500000);
         $fruit_legume = $pdo->prepare($query);
         $fruit_legume->bindParam(':moisList', $moisList, PDO::PARAM_INT);
         $fruit_legume->execute();
@@ -66,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           INNER JOIN fruits_legumes as fl ON fl.id_fruits_legumes = flm.id_fruits_legumes
           WHERE id_mois = :moisList
           ORDER BY fl.libelle ASC';
-  
-      // Exécutez la requête avec la préparation et l'exécution
+
+      usleep(500000);
       $fruit_legume = $pdo->prepare($query);
       $fruit_legume->bindParam(':moisList', $moisList, PDO::PARAM_INT);
       $fruit_legume->execute();
@@ -83,9 +84,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="fruits et légumes de saison">
     <title>MFLS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Open+Sans:ital@1&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Paprika&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
@@ -144,7 +145,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       </div>  
   </nav>
-  <h2><?= $moisList ?></h2>
    <div class="container_carte" >
    <?php if (empty($fruits_legumes)) : ?>
   <h3>Aucune carte de fruit ou de légume trouvée</h3>

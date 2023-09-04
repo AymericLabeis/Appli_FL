@@ -29,7 +29,7 @@ header{
   text-align: center;
   font-size: 2em;
   color: rgb(255, 243, 228);
-  font-family: 'Spicy Rice', cursive;
+  font-family: 'paprika', Verdana, Geneva, Tahoma, sans-serif;
   letter-spacing: 3px;
   font-weight: 200; 
 }
@@ -81,7 +81,7 @@ header{
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color:#a752bd;
+  background-color:#78328b;
 }
 .logo_title {
   position: relative;
@@ -212,6 +212,7 @@ max-width: 100%;
   color:transparent;
   display: block;
   z-index: 1000;
+  font-family: 'paprika', Verdana, Geneva, Tahoma, sans-serif;
   
   -webkit-animation-name: ease-success;
   -webkit-animation-duration:6s;
@@ -236,7 +237,7 @@ max-width: 100%;
   80%{ color: rgb(17,90,60); font-size: 30px ;  background-color: #ffffff; border: 5px solid rgb(6, 92, 92);}
   100%{ color: transparent; font-size: 30px ; background-color: transparent; border: none; display: none;}
 }
-@media screen and (max-width:767px){
+@media screen and (max-width:768px){
   .logo_title, .footerDesktop{
     display: none;
  }

@@ -46,9 +46,9 @@ if (isset($_GET['recette'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="recettes fruits et légumes">
     <title>Recettes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Open+Sans:ital@1&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Paprika&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style_recettes.css">
 </head>
 <body> 
@@ -56,7 +56,7 @@ if (isset($_GET['recette'])) {
   <header>
     <div class="logo_title">
       <a  href="index.php" id="InitialMonth"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
-      <h1 class="titre">Mes fruits et légumes de saison</h1> 
+      <h1 class="titre">Mes recettes de fruits et légumes</h1> 
     </div>
   </header>
 

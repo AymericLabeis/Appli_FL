@@ -8,7 +8,7 @@ const rotationSpeedFactor = 0.8;
 const postMonth = document.querySelector('.moisSelectionne');
 var activeButton = null;
 var initialX = 0;
-var initialRotation = 180;  
+var initialRotation = 180; 
 var angleRotation = 0;
 var rotationIncrement = 30;
 
@@ -16,8 +16,23 @@ var rotationIncrement = 30;
 moisActuelList.value = (moisActuel < 10 ? '0' : '') + moisActuel;
 console.log('Index list', moisActuelList.value);
 
+function rotateRoue(degrees) {
+  angleRotation += degrees;
+   // Mettre à jour initialRotation en fonction de la rotation actuelle
+  Roue.style.transform = `rotate(${angleRotation}deg)`;
+  console.log('initial rot', initialRotation);
+  // Augmenter ou diminuer la valeur de l'index de la liste déroulante d'une unité
+  if (degrees > 0) {
+    moisActuelList.selectedIndex = (moisActuelList.selectedIndex - 1 + moisActuelList.length) % moisActuelList.length;
+  } else {
+    moisActuelList.selectedIndex = (moisActuelList.selectedIndex + 1 + moisActuelList.length) % moisActuelList.length;
+  }
+  // Stocker la valeur sélectionnée dans le Local Storage
+  localStorage.setItem('selectedMonth', moisActuelList.value);
+}
 // Position de la roue automatique en fonction du mois actuel
 function CurrentMonthRoue() {
+  console.log('initial rot', initialRotation);
   var currentMonthIndex = moisActuel;
   console.log('Index mois en cours', currentMonthIndex);
   var currentButtonIndex = (-currentMonthIndex) % 12;
@@ -30,25 +45,9 @@ function CurrentMonthRoue() {
 }
 CurrentMonthRoue();
 
-function rotateRoue(degrees) {
-  initialRotation = initialRotation - degrees;
-  console.log('initial rot', initialRotation);
-  angleRotation += degrees;
-  Roue.style.transform = `rotate(${angleRotation}deg)`;
-  // Augmenter ou diminuer la valeur de l'index de la liste déroulante d'une unité
-  if (degrees > 0) {
-    moisActuelList.selectedIndex = (moisActuelList.selectedIndex -1 + moisActuelList.length) % moisActuelList.length;
-  } else {
-    moisActuelList.selectedIndex = (moisActuelList.selectedIndex +1 + moisActuelList.length) % moisActuelList.length;
-  }
-  // Stocker la valeur sélectionnée dans le Local Storage
-  localStorage.setItem('selectedMonth', moisActuelList.value);
-}
-
 // Détecter l'envoi du formulaire et stocker le mois sélectionné dans le Local Storage
 moisActuelList.addEventListener('change', function () {
-  bottomButton.style.border= yellow;
-  postMonth.textContent =selectedMonthName;
+  postMonth.textContent = selectedMonthName;
   var selectedMonth = parseInt(moisActuelList.value);
   localStorage.setItem('selectedMonth', selectedMonth);
    
@@ -93,10 +92,10 @@ function dragEnd() {
     });
 
     if (bottomButton) { 
+      //Roue.style.backgroundColor = 'red';
       const monthRoue = bottomButton.value;
       console.log('Index Roue mois', monthRoue);
       document.getElementById('mois').value = monthRoue;
-      // Store the selected month's value in local storage
       localStorage.setItem('selectedMonth', monthRoue, );
     }
   }
@@ -107,7 +106,7 @@ function dragEnd() {
 
 // affichage des cartes
 let carteRetournee = false;
-let premiereCarte, secondeCarte;
+let carteA;
 let verouillage = false;
 
 cartes.forEach(carte => {
@@ -119,13 +118,12 @@ function retourneCarte(){
         this.childNodes[1].classList.toggle('active');
     if(!carteRetournee){
   carteRetournee = true;
-        premiereCarte = this;
+        carteA = this;
         return;
     }
-    carteRetournee = false;
-    secondeCarte = this;
+  carteRetournee = false;  
 }
-
+//clear localStorage
 document.addEventListener('DOMContentLoaded', function() {
   var deleteLS = document.getElementById('InitialMonth');
   deleteLS.addEventListener('click', function(event) {

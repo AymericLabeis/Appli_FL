@@ -12,7 +12,7 @@ header{
   width:100%;
 }
 .footerDesktop{
-  
+ 
   width:100%;
   display: flex;
   background-color: #000000;
@@ -25,7 +25,7 @@ header{
   text-align: center;
   font-size: 2em;
   color: rgb(255, 243, 228);
-  font-family: 'Spicy Rice', cursive;
+  font-family: 'paprika', Verdana, Geneva, Tahoma, sans-serif;
   letter-spacing: 3px;
   font-weight: 200;
 }
@@ -65,7 +65,7 @@ header{
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color:#a752bd;
+  background-color:#78328b;
 }
 .logo_title {
   padding: 10px; 
@@ -236,7 +236,7 @@ nav{
   text-align: justify; 
 }
 
-@media screen and (max-width:767px){
+@media screen and (max-width:768px){
   .logo_title, .footerDesktop{
     display: none;
  }
