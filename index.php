@@ -2,6 +2,7 @@
 
 $pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
 $moisIndex = date('n');
+$moisList =""; 
 
 // Requête préparée pour récupérer les fruits et légumes du mois en cours
 $query = 'SELECT flm.id_fruits_legumes, fl.libelle, fl.img, fl.img_dispo, fl.prix, fl.kilo_piece ,fl.vitamines, fl.mineraux
@@ -104,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div> 
        <form class="formFL"  method="post">
         <div class ="button_FL">
-        <button type="submit" src="ressources/flecheG.png" class="flecheG" name="FL" value="month-1"onclick="tournerRoue(-30)"></button>
+        <button type="submit" src="ressources/flecheG.png" class="flecheG" name="FL" value="month-1"onclick="rotateRoue(-30)"></button>
         <select id="mois" name="mois">
           <option value="01">Janvier</option>
           <option value="02">Février</option>
@@ -121,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </select>
         <button type="submit" id="btnFLR" class="button_F" name="F_L" value="Fruit">Fruits</button>
         <button type="submit" id="btnFLR" class="button_L" name="F_L" value="Legume">Légumes</button>
-        <button type="submit" src="ressources/flecheD.png" class="flecheD" name="FL" value="month+1" onclick="tournerRoue(30)"></button>
+        <button type="submit" src="ressources/flecheD.png" class="flecheD" name="FL" value="month+1" onclick="rotateRoue(30)"></button>
        </div>
        </form>
        <div class ="button_Recettes">
@@ -143,12 +144,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       </div>  
   </nav>
-
+  <h2><?= $moisList ?></h2>
    <div class="container_carte" >
    <?php if (empty($fruits_legumes)) : ?>
-        <h3>Aucune carte de fruit ou de légume trouvée</h3>
+  <h3>Aucune carte de fruit ou de légume trouvée</h3>
     <?php else : ?>
    <?php foreach($fruits_legumes as $fruit_legume): ?>
+    
     <div class="carte">
       <div class="double-face">
           <div class="face">

@@ -29,7 +29,7 @@
        </div> 
       <div class ="button_FL">
         <form class="button_FL">
-          <button type="submit" src="ressources/flecheG.png" class="flecheG" name="action1" value="month-1"onclick="tournerRoue(-30)"></button>
+          <button type="submit" src="ressources/flecheG.png" class="flecheG" name="action1" value="month-1"onclick="rotateRoue(-30)"></button>
          <select id="mois">
           <option value="01">Janvier</option>
           <option value="02">Février</option>
@@ -46,7 +46,7 @@
          </select>
         <button type="submit" id="btnFLR" class="button_F" value="Soumettre">Fruits</button>
         <button type="submit" id="btnFLR" class="button_L" value="Soumettre">Légumes</button>
-        <button type="submit" src="ressources/flecheD.png" class="flecheD" name="action1" value="month+1" onclick="tournerRoue(30)"></button>
+        <button type="submit" src="ressources/flecheD.png" class="flecheD" name="action1" value="month+1" onclick="rotateRoue(30)"></button>
         
       </form>
        </div>
@@ -70,11 +70,11 @@
     </div>
    </nav>
 
-  
+   
   
 </div>
    <div class="container_carte" >
-    <h2 id="moisSelectionne"></h2> 
+    <h2 class="moisSelectionne"></h2> 
     <div class="carte">
       <div class="double-face">
           <div class="face">

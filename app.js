@@ -5,19 +5,12 @@ const storedMonth = localStorage.getItem('selectedMonth');
 const moisActuel = storedMonth ? parseInt(storedMonth) : new Date().getMonth() + 1;
 const moisActuelList= document.getElementById('mois');
 const rotationSpeedFactor = 0.8; 
+const postMonth = document.querySelector('.moisSelectionne');
 var activeButton = null;
 var initialX = 0;
 var initialRotation = 180;  
 var angleRotation = 0;
-
-document.addEventListener('DOMContentLoaded', function() {
-  var deleteLS = document.getElementById('InitialMonth');
-  deleteLS.addEventListener('click', function(event) {
-  event.preventDefault();
-  localStorage.clear();
-  window.location.href = "index.php";
-  });
-});
+var rotationIncrement = 30;
 
 // Mettre à jour la liste déroulante avec le mois actuel
 moisActuelList.value = (moisActuel < 10 ? '0' : '') + moisActuel;
@@ -25,26 +18,19 @@ console.log('Index list', moisActuelList.value);
 
 // Position de la roue automatique en fonction du mois actuel
 function CurrentMonthRoue() {
- 
-  var rotationIncrement = 30;
   var currentMonthIndex = moisActuel;
   console.log('Index mois en cours', currentMonthIndex);
-
   var currentButtonIndex = (-currentMonthIndex) % 12;
   console.log('button index', currentButtonIndex);
-  
   // Calculer l'angle de rotation pour placer le bouton en bas
   var degrees = initialRotation + rotationIncrement * currentButtonIndex;
-  
   Roue.style.transform = 'rotate(' + degrees + 'deg)';
   angleRotation = degrees;
   console.log('rotation roue', degrees);
-  
 }
-// Appelez la fonction pour positionner le mois en cours
 CurrentMonthRoue();
 
-function tournerRoue(degrees) {
+function rotateRoue(degrees) {
   initialRotation = initialRotation - degrees;
   console.log('initial rot', initialRotation);
   angleRotation += degrees;
@@ -61,8 +47,11 @@ function tournerRoue(degrees) {
 
 // Détecter l'envoi du formulaire et stocker le mois sélectionné dans le Local Storage
 moisActuelList.addEventListener('change', function () {
+  bottomButton.style.border= yellow;
+  postMonth.textContent =selectedMonthName;
   var selectedMonth = parseInt(moisActuelList.value);
   localStorage.setItem('selectedMonth', selectedMonth);
+   
 });
 
 //Mouvement de la roue de selection       
@@ -72,11 +61,10 @@ function dragStart(event) {
   document.addEventListener('mousemove', dragMove);
   document.addEventListener('mouseup', dragEnd);
 }
-
 function dragMove(event) {
   if (activeButton) {
     var deltaX = event.clientX - initialX;
-    var rotationIncrement = 30; // Incrémentation de la rotation en degrés
+    
     var degrees = Math.floor(deltaX / rotationIncrement) * rotationIncrement;
 
     // Calculer la vitesse de rotation basée sur le mouvement de la souris
@@ -138,7 +126,14 @@ function retourneCarte(){
     secondeCarte = this;
 }
 
-
+document.addEventListener('DOMContentLoaded', function() {
+  var deleteLS = document.getElementById('InitialMonth');
+  deleteLS.addEventListener('click', function(event) {
+  event.preventDefault();
+  localStorage.clear();
+  window.location.href = "index.php";
+  });
+});
 
 
 
