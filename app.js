@@ -18,7 +18,6 @@ console.log('Index list', moisActuelList.value);
 
 function rotateRoue(degrees) {
   angleRotation += degrees;
-   // Mettre à jour initialRotation en fonction de la rotation actuelle
   Roue.style.transform = `rotate(${angleRotation}deg)`;
   console.log('initial rot', initialRotation);
   // Augmenter ou diminuer la valeur de l'index de la liste déroulante d'une unité
@@ -30,18 +29,19 @@ function rotateRoue(degrees) {
   // Stocker la valeur sélectionnée dans le Local Storage
   localStorage.setItem('selectedMonth', moisActuelList.value);
 }
+
 // Position de la roue automatique en fonction du mois actuel
 function CurrentMonthRoue() {
-  console.log('initial rot', initialRotation);
   var currentMonthIndex = moisActuel;
   console.log('Index mois en cours', currentMonthIndex);
   var currentButtonIndex = (-currentMonthIndex) % 12;
-  console.log('button index', currentButtonIndex);
+  //console.log('button index', currentButtonIndex);
+
   // Calculer l'angle de rotation pour placer le bouton en bas
   var degrees = initialRotation + rotationIncrement * currentButtonIndex;
   Roue.style.transform = 'rotate(' + degrees + 'deg)';
   angleRotation = degrees;
-  console.log('rotation roue', degrees);
+  console.log('rotation roue', angleRotation);
 }
 CurrentMonthRoue();
 
@@ -50,7 +50,6 @@ moisActuelList.addEventListener('change', function () {
   postMonth.textContent = selectedMonthName;
   var selectedMonth = parseInt(moisActuelList.value);
   localStorage.setItem('selectedMonth', selectedMonth);
-   
 });
 
 //Mouvement de la roue de selection       
@@ -123,6 +122,21 @@ function retourneCarte(){
     }
   carteRetournee = false;  
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  let index = 0;
+  function afficherCartes() {
+      if (index < cartes.length) {
+          cartes[index].style.display = 'block'; // Afficher la carte
+          cartes[index].style.opacity = '1'; // Afficher la carte en ajustant l'opacité
+          index++;
+          setTimeout(afficherCartes, 50); // Afficher la prochaine carte après 2 secondes
+      }
+  }
+  
+  afficherCartes();
+});
+
 //clear localStorage
 document.addEventListener('DOMContentLoaded', function() {
   var deleteLS = document.getElementById('InitialMonth');

@@ -1,48 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Changer Couleur Texte</title>
+    <title>Cartes avec Délai</title>
     <style>
-        /* CSS pour le bouton */
-        .buttonR {
-            font-size: 16px;
-            cursor: pointer;
+        .carte {
+            width: 200px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            background-color: #f0f0f0;
+            display: none; /* Masquer initialement les cartes */
         }
     </style>
 </head>
 <body>
-    <select id="mois" name="mois">
-        <option value="01">Janvier</option>
-        <option value="02">Février</option>
-        <option value="03">Mars</option>
-        <option value="04">Avril</option>
-        <option value="05">Mai</option>
-        <option value="06">Juin</option>
-        <option value="07">Juillet</option>
-        <option value="08">Août</option>
-        <option value="09">Septembre</option>
-        <option value="10">Octobre</option>
-        <option value="11">Novembre</option>
-        <option value="12">Décembre</option>
-    </select>
-    <h2 id="moisSelectionne"></h2>
-    
+    <div class="carte">
+        <h2>Carte 1</h2>
+        <p>Contenu de la carte 1</p>
+    </div>
+
+    <div class="carte">
+        <h2>Carte 2</h2>
+        <p>Contenu de la carte 2</p>
+    </div>
+
+    <div class="carte">
+        <h2>Carte 3</h2>
+        <p>Contenu de la carte 3</p>
+    </div>
+
     <script>
-        // Récupérez l'élément select pour le mois
-        
-        const moisActuelList= document.getElementById('mois');
-    
-        // Récupérez l'élément h2 où vous voulez afficher le mois
-        const h2Mois = document.getElementById('moisSelectionne');
-    
-        // Écoutez les changements de sélection de la liste déroulante
-        moisActuelList.addEventListener('change', function() {
-            // Mettez à jour le contenu de l'élément h2 avec le mois sélectionné
-            h2Mois.textContent = moisActuelList.options[moisActuelList.selectedIndex].text;
+        document.addEventListener('DOMContentLoaded', function () {
+            const cartes = document.querySelectorAll('.carte');
+            let index = 0;
+
+            function afficherCarteSuivante() {
+                if (index < cartes.length) {
+                    cartes[index].style.display = 'block'; // Afficher la carte
+                    index++;
+                    setTimeout(afficherCarteSuivante, 2000); // Afficher la prochaine carte après 2 secondes
+                }
+            }
+
+            // Au chargement de la page, commencez à afficher les cartes avec un délai
+            afficherCarteSuivante();
         });
     </script>
-    
 </body>
 </html>
