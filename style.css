@@ -266,6 +266,7 @@ nav{
   border-color:#411b4b;
   color: #ffffff;
 }
+/* div RoueSelect*/
 .RoueSelect {
   position: relative;
   width: 1025px;
@@ -616,5 +617,10 @@ nav{
 .footerDesktop{
   height: 70px;
 }
+}
+@media screen and (min-width:1280px) {
+  body{
+    width: 100%;
+  }
 }
 /*@media screen and (orientation: landscape){}*/

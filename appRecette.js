@@ -1,6 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
-  localStorage.clear();
-});
+const recettes = document.querySelectorAll('.recette');
+
 function afficherRecetteA(element) {
   var show = element.querySelector('.recetteA');
   if (show.style.display === 'block') {
@@ -19,3 +18,21 @@ function previewImage(event) {
   };
   reader.readAsDataURL(event.target.files[0]);
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  let index = 0;
+  function afficherCartes() {
+      if (index < recettes.length) {
+          recettes[index].style.display = 'block'; 
+          recettes[index].style.opacity = '1'; 
+          index++;
+          setTimeout(afficherCartes, 100); 
+      }
+  }
+  
+  afficherCartes();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  localStorage.clear();
+});
