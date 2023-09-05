@@ -4,10 +4,10 @@ function afficherRecetteA(element) {
   var show = element.querySelector('.recetteA');
   if (show.style.display === 'block') {
     show.style.display = 'none'; 
+    setTimeout(afficherCartes, 1000);
   } else {
-    show.style.display = 'block'; 
+    show.style.display = 'block';  
   }
-  show.focus();
 }
 //previsualiser une image editeur
 function previewImage(event) {

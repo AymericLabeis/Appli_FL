@@ -156,34 +156,29 @@ nav{
 .formSearch{
   z-index: 1000;
 }
-.flecheG{
-  margin-right: 20px;
-  background:url(ressources/flecheG1.png) ;
-  background-size: 100%;
+.flecheG,.flecheD{
+  position: absolute;
   border: none;
   cursor: pointer;
-  width: 50px;
-  height: 50px;
+  width: 150px;
+  height:150px;
   opacity: 0.8;
   z-index: 1000;
+}
+.flecheG{
+  margin-right: 1200px;
+  background:url(ressources/flecheG1.png) ;
+  background-size: 100%;
   }
-  .flecheG:hover{
+  .flecheG:hover,.flecheD:hover{
     opacity: 1;
   }
   .flecheD{
-    margin-left: 20px;
+  margin-left: 1200px;
   background:url(ressources/flecheD1.png) ;
   background-size: 100%;
-  border: none;
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  opacity: 0.8;
-  z-index: 1000;
   }
-  .flecheD:hover{
-    opacity: 1;
-  }
+
 .button_FL{
   padding: 10px; 
   display: flex;
@@ -293,10 +288,16 @@ nav{
   border: 3px solid rgb(255, 255, 255);
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.8); 
   z-index: 100;  
-
 }
 .RoueSelect button:hover{
   border-color:rgb(6, 92, 92);
+}
+/* Ajoutez une classe CSS pour agrandir le texte du bouton du bas */
+button.agrandir-texte h2 {
+  transition: color 0.3s,text-shadow 0.3s, font-weight; /* Animation pour la transformation, la couleur du texte et l'ombre portée */
+  color: rgb(5, 53, 53); 
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Ajoute une ombre portée */
+  font-weight: bold;
 }
  .janvier {
   transform: rotate(30deg) translateX(0) translateY(-500px);
@@ -521,10 +522,7 @@ nav{
   margin-top: 10px;
   margin-bottom: 110px;
  }
-   .logo_title{
-     display: none;
-  }
-  .button_Recettes,.RoueSelect,.footerDesktop{
+.logo_title,.button_Recettes,.RoueSelect,.footerDesktop,.flecheG,.flecheD{
     display: none;
  }
 #mois{
@@ -552,9 +550,15 @@ nav{
     width: 120px;
     font-size: 15px;
   }
-  .flecheG, .flecheD{
-    width: 40px;
-    height: 40px;
+  .flecheG{
+    width: 120px;
+    height: 120px;
+    margin-right: 900px;
+  }
+  .flecheD{
+    margin-left: 900px;
+    width: 120px;
+    height: 120px;
   }
   #btnFLR{
     width:150px;

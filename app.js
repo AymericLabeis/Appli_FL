@@ -47,15 +47,16 @@ CurrentMonthRoue();
 
 // Détecter l'envoi du formulaire et stocker le mois sélectionné dans le Local Storage
 moisActuelList.addEventListener('change', function () {
-  postMonth.textContent = selectedMonthName;
   var selectedMonth = parseInt(moisActuelList.value);
   localStorage.setItem('selectedMonth', selectedMonth);
+  bottomButton.classList.remove('agrandir-texte')
 });
 
 //Mouvement de la roue de selection       
 function dragStart(event) {
   activeButton = event.target;
   initialX = event.clientX;
+  
   document.addEventListener('mousemove', dragMove);
   document.addEventListener('mouseup', dragEnd);
 }
@@ -96,6 +97,7 @@ function dragEnd() {
       console.log('Index Roue mois', monthRoue);
       document.getElementById('mois').value = monthRoue;
       localStorage.setItem('selectedMonth', monthRoue, );
+      bottomButton.classList.add('agrandir-texte')
     }
   }
   activeButton = null;
