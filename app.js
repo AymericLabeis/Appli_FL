@@ -19,7 +19,6 @@ console.log('Index list', moisActuelList.value);
 function rotateRoue(degrees) {
   angleRotation += degrees;
   Roue.style.transform = `rotate(${angleRotation}deg)`;
-  console.log('initial rot', initialRotation);
   // Augmenter ou diminuer la valeur de l'index de la liste déroulante d'une unité
   if (degrees > 0) {
     moisActuelList.selectedIndex = (moisActuelList.selectedIndex - 1 + moisActuelList.length) % moisActuelList.length;

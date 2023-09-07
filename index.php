@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (isset($_POST['FL'])) {
-      $action1 = $_POST['FL'];
+      $actionFL = $_POST['FL'];
       $moisList = $_POST['mois'];
   
       // Requête SQL sans condition
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div> 
        <form class="formFL"  method="post">
         <div class ="button_FL">
-        <button type="submit" src="ressources/flecheG.png" class="flecheG" name="FL" value="month-1"onclick="rotateRoue(-30)"></button>
+        <button type="submit" class="flecheG" name="FL" value="month-1"onclick="rotateRoue(-30)"></button>
         <select id="mois" name="mois">
           <option value="01">Janvier</option>
           <option value="02">Février</option>
@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </select>
         <button type="submit" id="btnFLR" class="button_F" name="F_L" value="Fruit">Fruits</button>
         <button type="submit" id="btnFLR" class="button_L" name="F_L" value="Legume">Légumes</button>
-        <button type="submit" src="ressources/flecheD.png" class="flecheD" name="FL" value="month+1" onclick="rotateRoue(30)"></button>
+        <button type="submit" class="flecheD" name="FL" value="month+1" onclick="rotateRoue(30)"></button>
        </div>
        </form>
        <div class ="button_Recettes">
