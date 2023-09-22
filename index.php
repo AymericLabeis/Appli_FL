@@ -1,5 +1,20 @@
 <?php declare(strict_types=1);
 
+session_start(); 
+
+// Vérifiez si le paramètre "logout" est présent dans l'URL
+if (isset($_GET['logout']) && $_GET['logout'] === 'true') {
+    // Détruisez toutes les variables de session
+    session_unset();
+
+    // Détruisez la session
+    session_destroy();
+
+    // Redirigez l'utilisateur vers la page d'accueil (index.php) après la déconnexion
+    header("Location: index.php");
+    exit();
+}
+
 $pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
 $moisIndex = date('n');
 $moisList =""; 
@@ -61,7 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $actionFL = $_POST['FL'];
       $moisList = $_POST['mois'];
   
-      // Requête SQL sans condition
       $query = 'SELECT flm.id_fruits_legumes, fl.libelle, fl.img, fl.img_dispo, fl.prix, fl.kilo_piece, fl.vitamines, fl.mineraux
           FROM fruits_legumes_mois as flm
           INNER JOIN fruits_legumes as fl ON fl.id_fruits_legumes = flm.id_fruits_legumes
@@ -91,9 +105,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
   <header>
+  <div class="box-login">
+    <?php if (isset($_SESSION['pseudo'])): ?>
+        <h2>Bienvenue <?php echo $_SESSION['pseudo']; ?> (ID: <?php echo $_SESSION['id']; ?>)</h2>
+    <?php else: ?>
+        <h2>non connecté</h2>
+    <?php endif; ?>
+</div>
     <div class="logo_title">
       <a  href="index.php" id="InitialMonth"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
-      <h1 class="titre">Mes fruits et légumes de saison</h1>
+      <h1 class="titre">Mes fruits et légumes de saison</h1>  
     </div>
   </header>
   <nav>
@@ -101,8 +122,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class ="recherche_FL">
        <form class="formSearch" method="get">
         <input type="text" name="carte" placeholder="Rechercher un fruit ou un légume" value="<?= htmlspecialchars($_GET['carte'] ?? '') ?>">
-        <button type="submit" >Rechercher</button>
+        <button type="submit" class="rechercher">Rechercher</button>
        </form>
+            <button class="btn_compte" onclick="afficherMasquerListe()">≡</button>
+    <!-- Liste ul initialement masquée -->
+    <ul id="compte">
+    <?php
+    if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+        // Si l'utilisateur est connecté en tant qu'administrateur, affichez toutes les options avec des liens
+        echo '<a href="compte.php"><li>Mon compte</li></a>';
+        echo '<a href="mesRecettes.php"><li>Mes recettes</li></a>';
+        echo '<a href="mesFiches.php"><li>Mes fiches</li></a>';
+        echo '<a href="index.php?logout=true"><li>Déconnexion</li></a>';
+    } elseif (isset($_SESSION['pseudo'])) {
+        // Si l'utilisateur est connecté en tant qu'utilisateur non administrateur, affichez des options spécifiques
+        echo '<a href="compte.php"><li>Mon compte</li></a>';
+        echo '<a href="mesRecettes.php"><li>Mes recettes</li></a>';
+        echo '<a href="index.php?logout=true"><li>Déconnexion</li></a>';
+    } else {
+        // Si l'utilisateur n'est pas connecté, affichez seulement l'option "Connexion"
+        echo '<a href="connexion.php"><li id="compte-li-connexion">Connexion</li></a>';
+    }
+    ?>
+</ul>
+
       </div> 
        <form class="formFL"  method="post">
         <div class ="button_FL">

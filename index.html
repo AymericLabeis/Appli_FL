@@ -16,6 +16,31 @@
     <div class="logo_title">
       <a  href="index.html" id="InitialMonth"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
       <h1 class="titre">Mes fruits et légumes de saison</h1>
+     <!-- Bouton pour afficher/masquer la liste -->
+    <button class="btn_compte" onclick="afficherMasquerListe()">Compte</button>
+    
+    <!-- Liste ul initialement masquée -->
+    <button class="btn_compte" onclick="afficherMasquerListe()">≡</button>
+    <!-- Liste ul initialement masquée -->
+    <ul id="compte">
+    
+    if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+        // Si l'utilisateur est connecté en tant qu'administrateur, affichez toutes les options avec des liens
+        echo '<a href="mon_compte.php"><li>Mon compte</li></a>';
+        echo '<a href="mesRecettes.php"><li>Mes recettes</li></a>';
+        echo '<li>Mes fiches</li>';
+        echo '<a href="index.php?logout=true"><li>Déconnexion</li></a>';
+    } elseif (isset($_SESSION['pseudo'])) {
+        // Si l'utilisateur est connecté en tant qu'utilisateur non administrateur, affichez des options spécifiques
+        echo '<a href="mon_compte.php"><li>Mon compte</li></a>';
+        echo '<a href="mesRecettes.php"><li>Mes recettes</li></a>';
+        echo '<a href="index.php?logout=true"><li>Déconnexion</li></a>';
+    } else {
+        // Si l'utilisateur n'est pas connecté, affichez seulement l'option "Connexion"
+        echo '<a href="login2.php"><li id="compte-li-connexion">Connexion</li></a>';
+    }
+    
+</ul>
     </div>
   </header>
   <nav>

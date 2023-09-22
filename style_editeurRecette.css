@@ -117,7 +117,7 @@ header{
   z-index: 100;
  }
   .titreRecette h1{
-  font-family: 'Spicy Rice', cursive;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
   /*text-decoration: underline;*/
   letter-spacing: 3px;
   font-weight: bold;

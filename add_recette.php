@@ -91,13 +91,6 @@ if (!empty($_POST)) {
     <link rel="stylesheet" href="style_editeurRecette.css">
 </head>
   <header>
-  <div class="box-login">
-    <?php if (isset($_SESSION['pseudo'])): ?>
-        <h2>Bienvenue <?php echo $_SESSION['pseudo']; ?> (ID: <?php echo $_SESSION['id']; ?>)</h2>
-    <?php else: ?>
-        <h2>non connecté</h2>
-    <?php endif; ?>
-</div>
   <div class="logo_title">
       <a  href="index.php"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
       <h1 class="titre">Mes fruits et légumes de saison</h1> 
@@ -137,16 +130,12 @@ if (!empty($_POST)) {
 
       <button id="submitRecette" type="submit">Créer la recette</button>
     </form>
-    
     </div>
 
     <?php if (!empty($success)) { ?>
         <div class="success"><?php echo $success; ?></div>
       <?php } ?>
 
-      <footer class="footerDesktop">
-      <h2>Aymeric LABEIS copyright 2023</h2>
-      </footer>
   <footer class="footerMobil">
       <div class="footerL">
         <a href="index.php">Accueil</a>

@@ -65,8 +65,9 @@ if (isset($_GET['recette'])) {
     <form class="recherche_Recette" method="get">
         <input type="text" name="recette" placeholder="Rechercher une recette" value="<?= htmlspecialchars($_GET['recette'] ?? '') ?>">
         <button id="rechercher" type="submit">Rechercher</button>
-    <a id="creerRecette" href="editeurRecette.php" target="_blank">+</a>
-    </form>
+        <a id="categories">Catégories</a>
+   </form>
+   
    </div>  
   </nav>
   

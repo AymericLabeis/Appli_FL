@@ -138,6 +138,59 @@ document.addEventListener('DOMContentLoaded', function () {
   afficherCartes();
 });
 
+function afficherMasquerListe() {
+  var liste = document.getElementById("compte");
+
+  if (liste.style.display === "none" || liste.style.display === "") {
+    liste.style.display = "block";
+  } else {
+    liste.style.display = "none";
+  }
+}
+
+// Supposons que isLoggedIn soit une variable indiquant si l'utilisateur est authentifié
+// Au chargement de la page, vérifiez si l'utilisateur est authentifié
+/*window.addEventListener("load", function() {
+  var isLoggedIn = checkAuthentication(); // Cette fonction devrait implémenter votre logique d'authentification
+
+  // Sélectionnez les éléments de la liste par leur ID
+  var monCompte = document.getElementById("compte-li-mon-compte");
+  var connexion = document.getElementById("compte-li-connexion");
+  var mesRecettes = document.getElementById("compte-li-mes-recettes");
+  var mesFiches = document.getElementById("compte-li-mes-fiches");
+  var deconnexion = document.getElementById("compte-li-deconnexion");
+
+  // Vérifiez si l'utilisateur est authentifié
+  if (isLoggedIn) {
+      // Si l'utilisateur est authentifié, affichez les éléments appropriés
+      monCompte.style.display = "block";
+      connexion.style.display = "none"; // Vous pouvez masquer la connexion lorsque l'utilisateur est connecté
+      mesRecettes.style.display = "block";
+      mesFiches.style.display = "block";
+      deconnexion.style.display = "block";
+  } else {
+      // Si l'utilisateur n'est pas authentifié, masquez les éléments appropriés
+      monCompte.style.display = "none";
+      connexion.style.display = "block";
+      mesRecettes.style.display = "none";
+      mesFiches.style.display = "none";
+      deconnexion.style.display = "none";
+  }
+});
+
+// Cette fonction simule la logique d'authentification
+function checkAuthentication() {
+  // Vous devez implémenter votre propre logique d'authentification ici
+  // Par exemple, vous pouvez vérifier si l'utilisateur a un cookie d'authentification ou s'il est connecté à un compte.
+  // Si l'utilisateur est authentifié, retournez true, sinon retournez false.
+  // Voici un exemple simple qui utilise un cookie :
+  var userIsLoggedIn = (document.cookie.indexOf("loggedIn=true") !== -1);
+  return userIsLoggedIn;
+}*/
+
+
+
+
 //clear localStorage
 document.addEventListener('DOMContentLoaded', function() {
   var deleteLS = document.getElementById('InitialMonth');

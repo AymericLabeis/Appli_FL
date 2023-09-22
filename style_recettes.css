@@ -110,7 +110,7 @@ nav{
   justify-content: center;
 }
 .recherche_Recette input[type="text"] {
-  width: 600px;
+  width: 560px;
   padding: 10px;
   font-size: 20px;
   border: 3px solid rgb(6, 92, 92);
@@ -123,7 +123,7 @@ nav{
   border-radius: 5px;
   /*background-color: #4CAF50;*/
   color: rgb(80, 79, 79);
-  margin-left: 20px;
+  margin-left: 15px;
   border: 3px solid rgb(6, 92, 92);
   border-radius: 10px;
 }
@@ -131,21 +131,21 @@ nav{
   color:#141414;
   border-color: rgb(4, 63, 63);
 }
-#creerRecette {
+#categories {
   padding: 10px;
   font-size: 20px;
   border-radius: 5px;
-  /*background-color: #4CAF50;*/
-  color: rgb(80, 79, 79);
-  margin-left: 20px;
+  color: rgb(136, 50, 16);
+  margin-left: 15px;
   border: 3px solid rgb(6, 92, 92);
   border-radius: 10px;
-  background-color: rgb(255, 255, 255);
-  text-decoration: none;
+  background-color: rgb(255, 136, 57);
 }
-#creerRecette:hover {
-  border: 3px solid rgb(4, 63, 63);
+#categories:hover{
+  color:#141414;
+  border-color: rgb(18, 63, 4);
 }
+
 .container_recette {
   width: 100%;
   justify-content: center;
@@ -249,7 +249,7 @@ nav{
   top: 0px;
 }
  .recherche_Recette input[type="text"] {
-  width: 350px;
+  width: 340px;
   font-size: 15px;
   margin: 3px;
 }
@@ -257,7 +257,7 @@ nav{
  font-size: 15px;
  margin: 3px;
 }
-#creerRecette{
+#categories {
   font-size: 15px;
   margin: 3px;
 }
@@ -303,14 +303,19 @@ font-size: 15px;
     font-size: 30px;
   }
   .recherche_Recette input[type="text"] {
-    width: 450px;
+    width: 400px;
     font-size: 15px;
   }
   #rechercher {
+    margin-left: 10px;
     width: 110px;
     font-size: 15px;
   }
-  
+  #categories {
+    margin-left: 10px;
+    width: 110px;
+    font-size: 15px;
+  }
   .recette{
     width: 650px;
    }
