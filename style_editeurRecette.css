@@ -124,9 +124,27 @@ header{
   font-size: 60px;
   text-align: center;
  }
+ .btn_MesRecettes{
+  font-family: 'Spicy Rice', Verdana, Geneva, Tahoma, sans-serif;
+  letter-spacing: 5px;
+  border-radius: 15px;
+  top: 5%;
+  Left:5%;
+  position: absolute;
+  border: 3px solid rgb(255, 255, 255);
+  padding: 10px;
+  text-align: center;
+  font-size: 25px;
+  color: rgb(218, 218, 218);
+  background-color: #272727;
+  text-decoration: none;
+ }
+ .btn_MesRecettes:hover{
+  color: #ffffff;
+}
  .formRecette {
-  width: 900px; /* Par exemple, vous pouvez ajuster cette valeur selon vos besoins */
-  margin: 30px auto; /* Centre le conteneur horizontalement */
+  max-width: 900px;
+  margin: 30px auto; 
   padding: 5px 20px;
   display: flex;
   justify-content: center;
@@ -143,7 +161,7 @@ header{
   display: block;
   font-weight: bold;
   margin: 10px;
-  width: 850px;
+  width: 820px;
   text-decoration: underline;
   color: #ffffff;
   font-size: 25px;
@@ -247,12 +265,20 @@ max-width: 100%;
 .titreRecette h1{
   font-size: 40px;
 }
+.btn_MesRecettes{
+  letter-spacing: 3px;
+  border-radius: 15px;
+  top: 2%;
+  Left:3%;
+  font-size: 18px;
+ }
 .formRecette {
+  margin-top: 90px;
   width: 550px;
   margin-bottom: 130px;
 }
 .formRecette label {
-  width: 500px;
+  width: 480px;
   font-size: 20px;
 }
 
@@ -287,12 +313,21 @@ max-width: 100%;
     .titreRecette h1{
       font-size: 50px;
     }
+    .btn_MesRecettes{
+      letter-spacing: 4px;
+      border-radius: 15px;
+      top: 11%;
+      Left:2%;
+      font-size: 18px;
+     }
+     
     .formRecette {
+      margin-top: 50px;
       width: 650px;
       margin-bottom: 130px;
     }
     .formRecette label {
-      width: 600px;
+      width: 580px;
       font-size: 20px;
     }
     .error{

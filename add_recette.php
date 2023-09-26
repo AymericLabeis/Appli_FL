@@ -97,7 +97,7 @@ if (!empty($_POST)) {
     </div>
   </header> 
   
- 
+  <a href="mesRecettes.php" class="btn_MesRecettes" >Mes recettes</a>
   <div class="formRecette">
     <form action="#" method="post" enctype="multipart/form-data">
       <label for="nom">Nom de la recette:</label>

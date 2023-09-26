@@ -6,7 +6,8 @@ $id_utilisateur = $_SESSION['id'];
 
 $query = "SELECT r.* FROM recettes r
           INNER JOIN users u ON r.id_users = u.id
-          WHERE u.id = :id";
+          WHERE u.id = :id
+          ORDER BY id_recettes DESC";
 
 $recette = $pdo->prepare($query);
 
@@ -41,14 +42,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_recette'])) {
         if ($delete->execute()) {
             // Suppression réussie, supprimez également l'image du dossier img_recettes
             if (!empty($img)) {
-                $chemin_image = "ressources/img_recette/$img";
-                if (file_exists($chemin_image)) {
-                    unlink($chemin_image);
+                $file_img = "ressources/img_recette/$img";
+                if (file_exists($file_img)) {
+                    unlink($file_img);
                 }
             }
-
-            // Redirigez l'utilisateur vers la page de recettes ou une autre page de votre choix
-            header('Location: mesRecettes.php'); // Remplacez 'mesRecettes.php' par l'URL souhaitée
+            
+            header('Location: mesRecettes.php'); 
             exit();
         } else {
             // Gestion des erreurs de suppression de recette
@@ -87,11 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_recette'])) {
       <h1 class="titre">Mes fruits et légumes de saison</h1>  
     </div>
   </header>
+  <a href="add_recette.php"><button type="submit" class="ajouter">Ajouter une recette</button></a>
+  <div class="box-donnees">
     <?php if (empty($recettes)) : ?>
   <h3 class="errorR">Pas encore de recette!!! </h3>
     <?php else : ?>
     <?php foreach ($recettes as $recette):  ?>
-    <div class="mesDonnées">
+    <div class="mesDonnees">
            <h2><?php echo $recette['nom']; ?></h2>
         <div class="btn_upt">
                <a href="edit_recette.php?id_recettes=<?php echo $recette['id_recettes']; ?>"><button type="submit" class="modifier">Modifier</button></a>
@@ -103,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_recette'])) {
     </div>
     <?php endforeach; ?>
   <?php endif; ?>
-    <a href="add_recette.php"><button type="submit" class="ajouter">Ajouter une recette</button></a>
+  </div>
     
     <footer class="footerMobil">
     <div class="footerL">
@@ -113,5 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_recette'])) {
       <a href="Recettes.php">Recettes</a>
     </div>
     </footer>
+    <script src="appCompte.js"></script>
 </body>
 </html>

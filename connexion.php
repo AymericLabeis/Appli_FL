@@ -19,17 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // L'utilisateur existe, vérifiez maintenant le mot de passe
         if (password_verify($password, $user['password'])) {
             // Le mot de passe est valide
-            $_SESSION['id'] = $user['id']; // Stockez l'identifiant unique de l'utilisateur dans une session
+            $_SESSION['id'] = $user['id']; 
             $_SESSION['pseudo'] = $pseudo; 
             $_SESSION['role'] = $user['role']; 
             header("Location: index.php");
-            exit(); // Assurez-vous de quitter le script après la redirection
+            exit();
         } else {
-            // Le mot de passe est incorrect
             $error_mdp = "Mot de passe incorrect";
         }
     } else {
-        // L'utilisateur n'existe pas
         $error_user = "Ce pseudo ($pseudo) n'existe pas";
     }
 }
@@ -49,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <header>
     <div class="logo_title">
-      <a  href="index.php" id="InitialMonth"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
+    <a  href="index.php" id="InitialMonth"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
       <h1 class="titre">Mes fruits et légumes de saison</h1>  
     </div>
   </header>
@@ -83,5 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <a href="Recettes.php">Recettes</a>
     </div>
     </footer>
+    <script src="appCompte.js"></script>
 </body> 
 </html>

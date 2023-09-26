@@ -6,7 +6,10 @@ const allImg = document.querySelectorAll('.icone-verif');
 const allSpan = document.querySelectorAll('span');
 const allLigne = document.querySelectorAll('.ligne div');
 
-
+document.addEventListener('DOMContentLoaded', function() {
+    localStorage.clear();
+  });
+  
 inpUtilisateur.addEventListener('input', (e) => {
 
     if(e.target.value.length >= 3) {

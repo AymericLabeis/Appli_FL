@@ -121,7 +121,7 @@ if (isset($_GET['id_recettes'])) {
       <h1 class="titre">Mes fruits et légumes de saison</h1> 
     </div>
   </header> 
-  
+  <a href="mesRecettes.php" class="btn_MesRecettes" >Mes recettes</a>
   <div class="formRecette">
     <form action="#" method="post" enctype="multipart/form-data">
       <label for="nom">Nom de la recette:</label>

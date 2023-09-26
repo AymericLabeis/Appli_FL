@@ -113,16 +113,16 @@ header{
   font-size: 40px;
   text-align: center;
 }
-.mesDonnées{
+.mesDonnees{
   display: flex;
   justify-content: space-between; 
   align-items: center;
-  margin: 20px;
+  margin: 20px 50px;
   background-color:rgba(255, 255, 255, 0.6);
   padding: 10px; 
   border: 2px solid white;
 }
-.mesDonnées h2 {
+.mesDonnees h2 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 25px;
   padding: 10px;
@@ -183,7 +183,10 @@ a {
 .logo_title{
   display: none;
 } 
-.mesDonnées h2 {
+.box-donnees{
+  margin-bottom: 110px;
+}
+.mesDonnees h2 {
   font-size: 15px;
 }
 .modifier,.supprimer{
@@ -191,7 +194,6 @@ a {
   font-size: 14px;
 }
 .ajouter{
-  margin-bottom: 110px;
   font-size: 18px;
 }
 
