@@ -169,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="mineraux">Minéraux:</label>
         <input type="text" id="mineraux" name="mineraux" value="<?php echo $mineraux; ?>" required>
 
-        <button id="submitRecette" type="submit">Créer la fiche</button>
+        <button id="submitCard" type="submit">Créer la fiche</button>
     </form>
 </div>
 

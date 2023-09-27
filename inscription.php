@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="post" action="">
             <div class="form-groupe">
                 <label for="utilisateur">Pseudo</label>
-                <input type="text" id="utilisateur" name="utilisateur" placeholder="Nom d'utilisateur" maxlength="24"value="<?= htmlspecialchars($name) ?>">
+                <input type="text" id="utilisateur" name="utilisateur" placeholder="Entrez un pseudo" maxlength="24"value="<?= htmlspecialchars($name) ?>">
                 <img src="ressources/check.svg" alt="icone de validation" class="icone-verif">
                 <span class="message-alerte">Choisissez un pseudo entre 3 et 24 caractères</span>
                 <?php if (!empty($errorName)) : ?>
@@ -103,17 +103,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
             </div>
             <div class="form-groupe">
-                <label for="email">Entrez votre mail</label>
-                <input type="email" id="email" name="email" placeholder="Votre mail" value="<?= htmlspecialchars($email) ?>">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" placeholder="Entrez votre e-mail" value="<?= htmlspecialchars($email) ?>">
                 <img src="ressources/check.svg" alt="icone de validation" class="icone-verif">
-                <span class="message-alerte">Rentrez un email valide.</span>
+                <span class="message-alerte">Entrez un email valide.</span>
                 <?php if (!empty($errorEmail)) : ?>
                 <div class="error-account"><?= $errorEmail?></div>
             <?php endif; ?>
             </div>
             <div class="form-groupe">
                 <label for="mdp">Mot de passe</label>
-                <input type="password" id="mdp"name="mdp" placeholder="Mot de passe" required>
+                <input type="password" id="mdp"name="mdp" placeholder="Entrez un mot de passe" required>
                 <img src="ressources/check.svg" alt="icone de validation" class="icone-verif">
                 <span class="message-alerte">Un symbole, une lettre minuscule, un chiffre.</span>
                 <?php if (!empty($errorPassword)) : ?>

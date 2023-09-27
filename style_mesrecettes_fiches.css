@@ -146,7 +146,7 @@ header{
 
 .supprimer {
   width: 120px;
-  background-color: #d80000;
+  background-color: #d84400;
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -160,7 +160,7 @@ header{
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #27ae60;
+  background-color: rgb(17, 90, 60);
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;

@@ -223,7 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_fruits_legumes']))
         <label for="mineraux">Minéraux:</label>
         <input type="text" id="mineraux" name="mineraux" value="<?php echo $mineraux; ?>" required>
 
-        <button id="submitRecette" type="submit"><?php echo isset($_GET['id_fruits_legumes']) ? 'Modifier' : 'Créer'; ?> la fiche</button>
+        <button id="submitCard" type="submit"><?php echo isset($_GET['id_fruits_legumes']) ? 'Modifier' : 'Créer'; ?> la fiche</button>
     </form>
 </div>
 

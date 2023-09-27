@@ -58,14 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form action="" method="post">
     <div class="form-groupe">
         <label for="utilisateur">Pseudo</label>
-        <input type="text" id="utilisateur" name="utilisateur" value="<?php echo htmlspecialchars($pseudo); ?>">
+        <input type="text" id="utilisateur" name="utilisateur" placeholder="Entrez votre pseudo" value="<?php echo htmlspecialchars($pseudo); ?>">
         <?php if (!empty($error_user)) : ?>
             <div class="error-account"><?= $error_user ?></div>
         <?php endif; ?>
     </div>
     <div class="form-groupe">
         <label for="password" class="form-label">Mot de passe</label>
-        <input type="password" class="form-control" id="password" name="password">
+        <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe">
         <?php if (!empty($error_mdp)) : ?>
             <div class="error-account"><?= $error_mdp ?></div>
         <?php endif; ?>
