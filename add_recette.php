@@ -1,6 +1,12 @@
 <?php declare(strict_types=1);
 session_start(); 
 
+if (!isset($_SESSION['id'])) {
+  header('Location: error404.php');
+  exit(); 
+}
+$pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
+
 $nom = '';
 $duree = '';
 $ingredients = '';
@@ -44,7 +50,7 @@ if (!empty($_POST)) {
 
                       if (move_uploaded_file($_FILES['img']['tmp_name'], "ressources/img_recette/$filename")) {
                           // Envoi réussi, enregistrement du nom de l'image en base de données
-                          $pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
+                          
                           $req_recettes = $pdo->prepare('INSERT INTO recettes (nom, ingredients, duree, etapes, id_categories, id_users, img) VALUES (:nom, :ingredients, :duree, :etapes, 1, :id_users, :img)');
                           $req_recettes->bindParam(':nom', $nom);
                           $req_recettes->bindParam(':duree', $duree);
@@ -56,7 +62,6 @@ if (!empty($_POST)) {
 
                           if ($req_recettes->rowCount() > 0) {
                               $success = 'Recette créée avec succès';
-                              // Réinitialisation des valeurs des champs
                               $nom = '';
                               $duree = '';
                               $ingredients = '';
@@ -73,7 +78,7 @@ if (!empty($_POST)) {
               $error_img = 'Insérer une photo (5Mo max)';
           }
       } else {
-          $error_duree = 'La durée doit être supérieure à zéro.';
+          $error_duree = 'La durée doit être un entier supérieur à zéro.';
       }
   }
 }

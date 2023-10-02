@@ -1,6 +1,10 @@
-<?php
-session_start(); // Démarrez la session
+<?php declare(strict_types=1);
+session_start(); 
 
+if (!isset($_SESSION['id'])) {
+    header('Location: error404.php');
+    exit(); 
+}
 $pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
 $id_utilisateur = $_SESSION['id'];
 

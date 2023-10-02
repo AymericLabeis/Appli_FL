@@ -1,6 +1,11 @@
 <?php declare(strict_types=1);
 session_start(); 
 
+if (!isset($_SESSION['id'])) {
+  header('Location: error404.php');
+  exit(); 
+}
+
 $nom = '';
 $duree = '';
 $ingredients = '';
@@ -55,7 +60,7 @@ if (!empty($_POST)) {
                           $req_recettes->execute();
 
                           if ($req_recettes->rowCount() > 0) {
-                              $success = 'Recette créée avec succès';
+                              $success = 'Recette modifiée avec succès';
                               // Réinitialisation des valeurs des champs
                               $nom = '';
                               $duree = '';

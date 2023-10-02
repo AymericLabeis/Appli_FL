@@ -1,5 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 session_start();
+
+if (!isset($_SESSION['id'])) {
+    header('Location: error404.php');
+    exit(); 
+  }
+
 $pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
 
 // Déclarations de variables pour éviter les erreurs de variable non définie
@@ -133,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_fruits_legumes']))
             }
 
             $pdo->commit();
-            $success = 'Modification réussie.';
+            $success = 'Fiche mise à jour avec succès.';
         } catch (PDOException $e) {
             $pdo->rollBack();
             echo 'Erreur lors de la modification : ' . $e->getMessage();

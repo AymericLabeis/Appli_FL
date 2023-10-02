@@ -1,7 +1,11 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 session_start();
 $pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
+
+if (!isset($_SESSION['id'])) {
+  header('Location: error404.php');
+  exit(); 
+}
 
 $libelle = "";
 $prix = "";
@@ -71,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                     
                     $pdo->commit();
-                    $success = 'Enregistrement réussi.';
+                    $success = 'Fiche créée avec succès';
                     $libelle = "";
                     $prix = "";
                 } catch (PDOException $e) {
@@ -121,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <option value="legume">Légume</option>
         </select>
 
-        <label for="imageFL">Insérer l'image du fruit</label>
+        <label for="imageFL">Insérer l'image du fruit:</label>
         <input type="file" id="imageFL" name="imageFL" accept="image/*" onchange="previewImageFL(event)">
         <img id="previewFL" class="preview-image" src="#" alt="">
 
@@ -129,13 +133,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="error"><?php echo $error_img; ?></div>
       <?php } ?>
 
-        <label for="imageD">Insérer l'image de disponibilité</label>
+        <label for="imageD">Insérer l'image de disponibilité:</label>
         <input type="file" id="imageD" name="imageD" accept="image/*" onchange="previewImageDispo(event)">
         <img id="previewDispo" class="preview-image" src="#" alt="">
         
         
 
-        <label for="mois">Mois disponible</label>
+        <label for="mois">Saison:</label>
         <select id="mois_ids" name="mois_ids[]" require multiple>
             <option value="01">Janvier</option>
             <option value="02">Février</option>
@@ -155,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="error"><?php echo $errorMonth; ?></div>
       <?php } ?>
       
-        <label for="prix">Prix</label>
+        <label for="prix">Prix:</label>
         <input type="decimal" id="prix" name="prix" value="<?php echo $prix; ?>" required>
 
         <select id="kilo_piece" name="kilo_piece">

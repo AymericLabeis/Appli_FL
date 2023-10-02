@@ -1,5 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 session_start();
+
+if (!isset($_SESSION['id'])) {
+    header('Location: error404.php');
+    exit(); 
+  }
+
 $pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
 
 if (isset($_GET['id_recettes'])) {
