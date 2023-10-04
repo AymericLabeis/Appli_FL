@@ -7,7 +7,7 @@ $error_mdp = "";
 $pseudo = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $pseudo = $_POST['utilisateur']; 
+    $pseudo = htmlspecialchars($_POST['utilisateur'], ENT_QUOTES, 'UTF-8');
     $password = $_POST['password']; 
 
     // Vérifiez si l'utilisateur existe dans la base de données
@@ -58,14 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form action="" method="post">
     <div class="form-groupe">
         <label for="utilisateur">Pseudo</label>
-        <input type="text" id="utilisateur" name="utilisateur" placeholder="Entrez votre pseudo" value="<?php echo htmlspecialchars($pseudo); ?>">
+        <input type="text" id="utilisateur" name="utilisateur" placeholder="" value="<?php echo htmlspecialchars($pseudo); ?>">
         <?php if (!empty($error_user)) : ?>
             <div class="error-account"><?= $error_user ?></div>
         <?php endif; ?>
     </div>
     <div class="form-groupe">
         <label for="password" class="form-label">Mot de passe</label>
-        <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe">
+        <input type="password" id="password" name="password" placeholder="">
         <?php if (!empty($error_mdp)) : ?>
             <div class="error-account"><?= $error_mdp ?></div>
         <?php endif; ?>

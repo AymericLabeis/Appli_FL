@@ -8,7 +8,6 @@ if (!isset($_SESSION['id'])) {
 
 $pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
 
-// Déclarations de variables pour éviter les erreurs de variable non définie
 if (isset($_GET['id_fruits_legumes'])) {
     $id_fruits_legumes = $_GET['id_fruits_legumes'];
 
@@ -31,7 +30,7 @@ if (isset($_GET['id_fruits_legumes'])) {
     // Sélectionner les mois associés à ce fruit ou légume
     $query = "SELECT id_mois FROM fruits_legumes_mois WHERE id_fruits_legumes = :id_fruits_legumes";
     $upt_req_FL = $pdo->prepare($query);
-    $upt_req_FL->bindParam(':id_fruits_legumes', $id_fruits_legumes,  PDO::PARAM_INT);
+    $upt_req_FL->bindParam(':id_fruits_legumes', $id_fruits_legumes, PDO::PARAM_INT);
     $upt_req_FL->execute();
     $selected_months = $upt_req_FL->fetchAll(PDO::FETCH_COLUMN);
 
@@ -44,109 +43,155 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_fruits_legumes']))
     $id_fruits_legumes = $_POST['id_fruits_legumes'];
 
     // Récupération des données du formulaire
-    $libelle = $_POST['libelle'];
-    $prix = $_POST['prix'];
-    $vitamines = $_POST['vitamines'];
-    $mineraux = $_POST['mineraux'];
+    $libelle = htmlspecialchars($_POST['libelle'], ENT_QUOTES, 'UTF-8');
+    $type = htmlspecialchars($_POST['type'], ENT_QUOTES, 'UTF-8');
+    $prix = floatval($_POST['prix']); 
+    $kilo_piece = htmlspecialchars($_POST['kilo_piece']); 
+    $vitamines = htmlspecialchars($_POST['vitamines'], ENT_QUOTES, 'UTF-8');
+    $mineraux = htmlspecialchars($_POST['mineraux'], ENT_QUOTES, 'UTF-8');
     $id_users = $_SESSION['id'];
-    $type = $_POST['type'];
-    $kilo_piece = $_POST['kilo_piece'];
+    
 
-    // Gestion des images uniquement si de nouvelles images ont été téléchargées
-    if (isset($_FILES['nouvelle_img']) && $_FILES['nouvelle_img']['error'] === UPLOAD_ERR_OK) {
-        $new_img = basename($_FILES['nouvelle_img']['name']);
-
-        // Supprimer l'ancienne image si elle existe
-        if (!empty($img)) {
-            $chemin_image = "ressources/FL/$img";
-            if (file_exists($chemin_image)) {
-                unlink($chemin_image);
-            }
-        }
-
-        // Déplacer le fichier image vers le dossier de destination
-        $destination_img = "ressources/FL/$new_img";
-        if (move_uploaded_file($_FILES['nouvelle_img']['tmp_name'], $destination_img)) {
-            $img = $new_img;
-        } else {
-            $error_img = 'Erreur lors du déplacement de la nouvelle image du fruit.';
-        }
+    // Vérification du libellé
+    if (strlen($libelle) < 2 || strlen($libelle) > 20) {
+        $error_libelle = 'Le libellé doit comporter entre 2 et 20 caractères.';
     }
 
-    if (isset($_FILES['nouvelle_img_dispo']) && $_FILES['nouvelle_img_dispo']['error'] === UPLOAD_ERR_OK) {
-        $new_img_dispo = basename($_FILES['nouvelle_img_dispo']['name']);
-
-        // Déplacer le fichier image de disponibilité vers le dossier de destination
-        $destination_img_dispo = "ressources/img_dispo/$new_img_dispo";
-        if (move_uploaded_file($_FILES['nouvelle_img_dispo']['tmp_name'], $destination_img_dispo)) {
-            $img_dispo = $new_img_dispo;
-        } else {
-            $error_img_dispo = 'Erreur lors du déplacement de la nouvelle image de disponibilité.';
-        }
-    }
-
-    // Vérification si mois_ids est défini et n'est pas vide
-    if (isset($_POST['mois_ids']) && is_array($_POST['mois_ids']) && count($_POST['mois_ids']) > 0) {
-        $ids_mois = $_POST['mois_ids']; // Tableau des IDs des mois sélectionnés
-
-        try {
-            $pdo->beginTransaction();
-
-            // C'est une modification
-            $query = "UPDATE fruits_legumes
-                      SET libelle = :libelle, prix = :prix, vitamines = :vitamines, mineraux = :mineraux,
-                          id_users = :id_users, type = :type, kilo_piece = :kilo_piece,
-                          img = :img";
-
-            // Mettez à jour l'image de disponibilité uniquement si une nouvelle image est téléchargée
-            if (isset($_FILES['nouvelle_img_dispo']) && $_FILES['nouvelle_img_dispo']['error'] === UPLOAD_ERR_OK) {
-                $query .= ", img_dispo = :img_dispo";
-            }
-
-            $query .= " WHERE id_fruits_legumes = :id_fruits_legumes";
-
-            $upt_req_FL = $pdo->prepare($query);
-            $upt_req_FL->bindParam(':id_fruits_legumes', $id_fruits_legumes, PDO::PARAM_INT);
-            $upt_req_FL->bindParam(':libelle', $libelle);
-            $upt_req_FL->bindParam(':prix', $prix);
-            $upt_req_FL->bindParam(':vitamines', $vitamines);
-            $upt_req_FL->bindParam(':mineraux', $mineraux);
-            $upt_req_FL->bindParam(':id_users', $id_users, PDO::PARAM_INT);
-            $upt_req_FL->bindParam(':type', $type);
-            $upt_req_FL->bindParam(':kilo_piece', $kilo_piece);
-            $upt_req_FL->bindParam(':img', $img);
-
-            // Mettez à jour l'image de disponibilité uniquement si une nouvelle image est téléchargée
-            if (isset($_FILES['nouvelle_img_dispo']) && $_FILES['nouvelle_img_dispo']['error'] === UPLOAD_ERR_OK) {
-                $upt_req_FL->bindParam(':img_dispo', $img_dispo);
-            }
-
-            $upt_req_FL->execute();
-
-            // Supprimez les anciennes relations dans la table fruits_legumes_mois
-            $query = "DELETE FROM fruits_legumes_mois WHERE id_fruits_legumes = :id_fruits_legumes";
-            $upt_req_FL = $pdo->prepare($query);
-            $upt_req_FL->bindParam(':id_fruits_legumes', $id_fruits_legumes, PDO::PARAM_INT);
-            $upt_req_FL->execute();
-
-            // Enregistrement des nouvelles relations dans la table fruits_legumes_mois
-            foreach ($ids_mois as $id_mois) {
-                $query = "INSERT INTO fruits_legumes_mois(id_fruits_legumes, id_mois) VALUES (:id_fruits_legumes, :id_mois)";
-                $upt_req_FL = $pdo->prepare($query);
-                $upt_req_FL->bindParam(':id_fruits_legumes', $id_fruits_legumes, PDO::PARAM_INT);
-                $upt_req_FL->bindParam(':id_mois', $id_mois, PDO::PARAM_INT);
-                $upt_req_FL->execute();
-            }
-
-            $pdo->commit();
-            $success = 'Fiche mise à jour avec succès.';
-        } catch (PDOException $e) {
-            $pdo->rollBack();
-            echo 'Erreur lors de la modification : ' . $e->getMessage();
-        }
+    // Vérification du prix
+    if (!is_numeric($prix) || $prix <= 0) {
+        $error_prix = 'Le prix doit supérieur à zéro.';
     } else {
-        $errorMonth = 'Veuillez sélectionner au moins un mois.';
+        // Convertir le prix en nombre à virgule flottante
+        $prix = (float)$prix;
+
+        // Si les vérifications du libellé et du prix sont passées, procéder à la mise à jour
+        if (!isset($error_libelle) && !isset($error_prix)) {
+            // Gestion des images uniquement si de nouvelles images ont été téléchargées
+            if (isset($_FILES['nouvelle_img']) && $_FILES['nouvelle_img']['error'] === UPLOAD_ERR_OK) {
+                $new_img = basename($_FILES['nouvelle_img']['name']);
+
+                // Supprimer l'ancienne image si elle existe
+                if (!empty($img)) {
+                    $chemin_image = "ressources/FL/$img";
+                    if (file_exists($chemin_image)) {
+                        unlink($chemin_image);
+                    }
+                }
+
+                // Déplacer le fichier image vers le dossier de destination
+                $destination_img = "ressources/FL/$new_img";
+                if (move_uploaded_file($_FILES['nouvelle_img']['tmp_name'], $destination_img)) {
+                    $img = $new_img;
+                } else {
+                    $error_img = 'Erreur lors du déplacement de la nouvelle image du fruit.';
+                }
+            }
+
+            if (isset($_FILES['nouvelle_img_dispo']) && $_FILES['nouvelle_img_dispo']['error'] === UPLOAD_ERR_OK) {
+                $new_img_dispo = basename($_FILES['nouvelle_img_dispo']['name']);
+
+                // Déplacer le fichier image de disponibilité vers le dossier de destination
+                $destination_img_dispo = "ressources/img_dispo/$new_img_dispo";
+                if (move_uploaded_file($_FILES['nouvelle_img_dispo']['tmp_name'], $destination_img_dispo)) {
+                    $img_dispo = $new_img_dispo;
+                } else {
+                    $error_img_dispo = 'Erreur lors du déplacement de la nouvelle image de disponibilité.';
+                }
+            }
+
+            // Vérification si mois_ids est défini et n'est pas vide
+            if (isset($_POST['mois_ids']) && is_array($_POST['mois_ids']) && count($_POST['mois_ids']) > 0) {
+                $ids_mois = $_POST['mois_ids']; // Tableau des IDs des mois sélectionnés
+
+                try {
+                    $pdo->beginTransaction();
+
+                    // C'est une modification
+                    $query = "UPDATE fruits_legumes
+                              SET libelle = :libelle, prix = :prix, vitamines = :vitamines, mineraux = :mineraux,
+                                  id_users = :id_users, type = :type, kilo_piece = :kilo_piece,
+                                  img = :img";
+
+                    // Mettez à jour l'image de disponibilité uniquement si une nouvelle image est téléchargée
+                    if (isset($_FILES['nouvelle_img_dispo']) && $_FILES['nouvelle_img_dispo']['error'] === UPLOAD_ERR_OK) {
+                        $query .= ", img_dispo = :img_dispo";
+                    }
+
+                    $query .= " WHERE id_fruits_legumes = :id_fruits_legumes";
+
+                    $upt_req_FL = $pdo->prepare($query);
+                    $upt_req_FL->bindParam(':id_fruits_legumes', $id_fruits_legumes, PDO::PARAM_INT);
+                    $upt_req_FL->bindParam(':libelle', $libelle);
+                    $upt_req_FL->bindParam(':prix', $prix);
+                    $upt_req_FL->bindParam(':vitamines', $vitamines);
+                    $upt_req_FL->bindParam(':mineraux', $mineraux);
+                    $upt_req_FL->bindParam(':id_users', $id_users, PDO::PARAM_INT);
+                    $upt_req_FL->bindParam(':type', $type);
+                    $upt_req_FL->bindParam(':kilo_piece', $kilo_piece);
+                    $upt_req_FL->bindParam(':img', $img);
+
+                    // Mettez à jour l'image de disponibilité uniquement si une nouvelle image est téléchargée
+                    if (isset($_FILES['nouvelle_img_dispo']) && $_FILES['nouvelle_img_dispo']['error'] === UPLOAD_ERR_OK) {
+                        $upt_req_FL->bindParam(':img_dispo', $img_dispo);
+                    }
+
+                    $upt_req_FL->execute();
+
+                    // Supprimez les anciennes relations dans la table fruits_legumes_mois
+                    $query = "DELETE FROM fruits_legumes_mois WHERE id_fruits_legumes = :id_fruits_legumes";
+                    $upt_req_FL = $pdo->prepare($query);
+                    $upt_req_FL->bindParam(':id_fruits_legumes', $id_fruits_legumes, PDO::PARAM_INT);
+                    $upt_req_FL->execute();
+
+                    // Enregistrement des nouvelles relations dans la table fruits_legumes_mois
+                    foreach ($ids_mois as $id_mois) {
+                        $query = "INSERT INTO fruits_legumes_mois(id_fruits_legumes, id_mois) VALUES (:id_fruits_legumes, :id_mois)";
+                        $upt_req_FL = $pdo->prepare($query);
+                        $upt_req_FL->bindParam(':id_fruits_legumes', $id_fruits_legumes, PDO::PARAM_INT);
+                        $upt_req_FL->bindParam(':id_mois', $id_mois, PDO::PARAM_INT);
+                        $upt_req_FL->execute();
+                    }
+
+                    $pdo->commit();
+                    $success = 'Fiche mise à jour avec succès.';
+                } catch (PDOException $e) {
+                    $pdo->rollBack();
+                    echo 'Erreur lors de la modification : ' . $e->getMessage();
+                }
+            } else {
+                $errorMonth = 'Veuillez sélectionner au moins un mois.';
+            }
+        }
     }
+}
+
+
+if (isset($success)) {
+    // Réexécutez la requête pour récupérer les données mises à jour de la fiche
+    $query = "SELECT * FROM fruits_legumes WHERE id_fruits_legumes = :id_fruits_legumes";
+    $upt_req_FL = $pdo->prepare($query);
+    $upt_req_FL->bindParam(':id_fruits_legumes', $id_fruits_legumes, PDO::PARAM_INT);
+    $upt_req_FL->execute();
+
+    // Mettre à jour $fruit_legume avec les données de la base de données
+    $fruit_legume = $upt_req_FL->fetch(PDO::FETCH_ASSOC);
+
+    // Mettez à jour les variables PHP pour préremplir les champs du formulaire avec les nouvelles données
+    $libelle = $fruit_legume['libelle'];
+    $prix = $fruit_legume['prix'];
+    $vitamines = $fruit_legume['vitamines'];
+    $mineraux = $fruit_legume['mineraux'];
+    $type = $fruit_legume['type'];
+    $kilo_piece = $fruit_legume['kilo_piece'];
+    $img = $fruit_legume['img'];
+    $img_dispo = $fruit_legume['img_dispo'];
+
+    // Sélectionner les mois associés à ce fruit ou légume
+    $query = "SELECT id_mois FROM fruits_legumes_mois WHERE id_fruits_legumes = :id_fruits_legumes";
+    $upt_req_FL = $pdo->prepare($query);
+    $upt_req_FL->bindParam(':id_fruits_legumes', $id_fruits_legumes, PDO::PARAM_INT);
+    $upt_req_FL->execute();
+    $selected_months = $upt_req_FL->fetchAll(PDO::FETCH_COLUMN);
 }
 
 ?>
@@ -183,6 +228,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_fruits_legumes']))
             <option value="legume" <?php if ($type === 'legume') echo 'selected'; ?>>Légume</option>
         </select>
 
+        <?php if (!empty($error_libelle)) { ?>
+        <div class="error"><?php echo $error_libelle; ?></div>
+      <?php } ?>
+
         <label for="imageFL">Insérer l'image du fruit</label>
         <input type="file" id="imageFL" name="nouvelle_img" accept="image/*" onchange="previewImageFL(event)">
         <img id="previewFL" class="preview-image" src="#" alt="">
@@ -216,13 +265,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_fruits_legumes']))
         <?php } ?>
 
         <label for="prix">Prix</label>
-        <input type="decimal" id="prix" name="prix" value="<?php echo $prix; ?>" required>
+        <input type="number" id="prix" name="prix" value="<?php echo $prix; ?>" step="0.01" required>
 
         <select id="kilo_piece" name="kilo_piece">
             <option value="€/KG" <?php if ($kilo_piece === '€/KG') echo 'selected'; ?>>€/KG</option>
             <option value="€ la pièce" <?php if ($kilo_piece === '€ la pièce') echo 'selected'; ?>>€ la pièce</option>
         </select>
 
+        <?php if (!empty($error_prix)) { ?>
+        <div class="error"><?php echo $error_prix; ?></div>
+      <?php } ?>
         <label for="vitamines">Vitamines:</label>
         <input type="text" id="vitamines" name="vitamines" value="<?php echo $vitamines; ?>" required>
 

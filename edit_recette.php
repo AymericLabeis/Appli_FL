@@ -32,10 +32,10 @@ if (isset($_GET['id_recettes'])) {
         // Le formulaire de modification
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Récupérez les données soumises par le formulaire
-            $nom = $_POST['nom'];
+            $nom = htmlspecialchars($_POST['nom'], ENT_QUOTES, 'UTF-8');
             $duree = $_POST['duree'];
-            $ingredients = $_POST['ingredients'];
-            $etapes = $_POST['etapes'];
+            $ingredients = htmlspecialchars($_POST['ingredients'], ENT_QUOTES, 'UTF-8');
+            $etapes = htmlspecialchars($_POST['etapes'], ENT_QUOTES, 'UTF-8');
 
             // Gestion du téléchargement de la nouvelle image
             if (isset($_FILES['nouvelle_img']) && $_FILES['nouvelle_img']['error'] === UPLOAD_ERR_OK) {

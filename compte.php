@@ -16,8 +16,8 @@ $errorPassword = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $newName = $_POST['utilisateur'];
-    $newEmail = $_POST['email'];
+    $newName = htmlspecialchars($_POST['utilisateur'], ENT_QUOTES, 'UTF-8');
+    $newEmail = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
     $newPassword = $_POST['mdp'];
     $newConfirmPassword = $_POST['mdpconf']; 
 

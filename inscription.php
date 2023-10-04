@@ -10,8 +10,8 @@ $errorPassword = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['utilisateur'];
-    $email = $_POST['email'];
+    $name = htmlspecialchars($_POST['utilisateur'], ENT_QUOTES, 'UTF-8');
+    $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
     $password = $_POST['mdp'];
     $passwordConfirm = $_POST['mdpconf']; // Champ de confirmation du mot de passe
     
