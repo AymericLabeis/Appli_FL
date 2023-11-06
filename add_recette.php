@@ -18,10 +18,11 @@ $error_etapes = '';
 $error_img = '';
 $success= '';
 
+
 if (!empty($_POST)) {
   // Vérification des données du formulaire 
   $nom = htmlspecialchars($_POST['nom'], ENT_QUOTES, 'UTF-8');
-  $duree = $_POST['duree'];
+  $duree = htmlspecialchars($_POST['duree'], ENT_QUOTES, 'UTF-8');
   $ingredients = htmlspecialchars($_POST['ingredients'], ENT_QUOTES, 'UTF-8');
   $etapes = htmlspecialchars($_POST['etapes'], ENT_QUOTES, 'UTF-8');
 
@@ -29,60 +30,62 @@ if (!empty($_POST)) {
   if (strlen($nom) < 3 || strlen($nom) > 100) {
     $error_nom = 'Le titre doit comporter entre 3 et 100 caractères';
   } else {
-      // Vérification de la durée
-      if ($duree > 0) {
-          // Vérification de l'existence et de la réussite de l'envoi de l'image
-          if (isset($_FILES['img']) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
-              // Vérification du type de fichier
-              $file_info = getimagesize($_FILES['img']['tmp_name']);
+    // Vérification de la durée
+    if ($duree > 0) {
+      // Vérification de l'existence et de la réussite de l'envoi de l'image
+      if (isset($_FILES['img']) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
+        // Vérification de la taille du fichier
+        $fileSize = $_FILES['img']['size'];
+        $maxFileSize = 5 * 1024 * 1024; // 5 Mo en octets
 
-              if ($file_info === false) {
-                  $error_img = 'Le fichier n\'est pas une image valide.';
+        if ($fileSize > $maxFileSize) {
+          $error_img = 'Insérer une photo de 5 Mo maximum';
+        } else {
+          // Vérification de l'extension du fichier
+          $extension = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
+
+          if (in_array(strtolower($extension), array('jpg', 'jpeg', 'png', 'gif'))) {
+            // C'est une image, vous pouvez traiter le téléchargement
+            $filename = basename($_FILES['img']['name']);
+
+            if (move_uploaded_file($_FILES['img']['tmp_name'], "ressources/img_recette/$filename")) {
+              // Envoi réussi, enregistrement du nom de l'image en base de données
+              $req_recettes = $pdo->prepare('INSERT INTO recettes (nom, ingredients, duree, etapes, id_categories, id_users, img) VALUES (:nom, :ingredients, :duree, :etapes, 1, :id_users, :img)');
+              $req_recettes->bindParam(':nom', $nom);
+              $req_recettes->bindParam(':duree', $duree);
+              $req_recettes->bindParam(':ingredients', $ingredients);
+              $req_recettes->bindParam(':etapes', $etapes);
+              $req_recettes->bindParam(':id_users', $_SESSION['id']); // Utilisez la variable de session pour l'ID de l'utilisateur
+              $req_recettes->bindParam(':img', $filename);
+              $req_recettes->execute();
+
+              if ($req_recettes->rowCount() > 0) {
+                $success = 'Recette créée avec succès';
+                $nom = '';
+                $duree = '';
+                $ingredients = '';
+                $etapes = '';
               } else {
-                  // Vérification de l'extension du fichier
-                  $extension = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
-
-                  if (!in_array(strtolower($extension), array('jpg', 'jpeg', 'png', 'gif'))) {
-                      $error_img = 'Seules les images avec les extensions JPG, JPEG, PNG et GIF sont autorisées.';
-                  } else {
-                      // Téléchargement de l'image réussi
-                      $filename = basename($_FILES['img']['name']);
-
-                      if (move_uploaded_file($_FILES['img']['tmp_name'], "ressources/img_recette/$filename")) {
-                          // Envoi réussi, enregistrement du nom de l'image en base de données
-                          
-                          $req_recettes = $pdo->prepare('INSERT INTO recettes (nom, ingredients, duree, etapes, id_categories, id_users, img) VALUES (:nom, :ingredients, :duree, :etapes, 1, :id_users, :img)');
-                          $req_recettes->bindParam(':nom', $nom);
-                          $req_recettes->bindParam(':duree', $duree);
-                          $req_recettes->bindParam(':ingredients', $ingredients);
-                          $req_recettes->bindParam(':etapes', $etapes);
-                          $req_recettes->bindParam(':id_users', $_SESSION['id']); // Utilisez la variable de session pour l'ID de l'utilisateur
-                          $req_recettes->bindParam(':img', $filename);
-                          $req_recettes->execute();
-
-                          if ($req_recettes->rowCount() > 0) {
-                              $success = 'Recette créée avec succès';
-                              $nom = '';
-                              $duree = '';
-                              $ingredients = '';
-                              $etapes = '';
-                          } else {
-                              $error_img = 'Une erreur s\'est produite lors de la création de la recette.';
-                          }
-                      } else {
-                          $error_img = 'Envoi échoué.';
-                      }
-                  }
+                $error_img = 'Une erreur s\'est produite lors de la création de la recette';
               }
+            } else {
+              $error_img = 'Envoi échoué';
+            }
           } else {
-              $error_img = 'Insérer une photo (5Mo max)';
+            $error_img = 'Seules les photos au format JPG, JPEG, PNG et GIF sont autorisées';
           }
+        }
       } else {
-          $error_duree = 'La durée doit être un entier supérieur à zéro.';
+        $error_img = 'Veuillez insérer une photo';
       }
+    } else {
+      $error_duree = 'La durée doit être un entier supérieur à zéro';
+    }
   }
 }
 ?>
+
+
 <!DOCTYPE html >
 <html lang="fr-FR">
 <head>

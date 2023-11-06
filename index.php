@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="fruits et légumes de saison">
-    <title>MFLS</title>
+    <title>Acceuil</title>
     <link href="https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Paprika&display=swap" rel="stylesheet">
@@ -102,13 +102,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
   <header>
-  <div class="box-login">
-    <?php if (isset($_SESSION['pseudo'])): ?>
-        <h2>Bienvenue <?php echo $_SESSION['pseudo']; ?> (ID: <?php echo $_SESSION['id']; ?>)</h2>
-    <?php else: ?>
-        <h2>non connecté</h2>
-    <?php endif; ?>
-</div>
     <div class="logo_title">
       <a  href="index.php" id="InitialMonth"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
       <h1 class="titre">Mes fruits et légumes de saison</h1>  

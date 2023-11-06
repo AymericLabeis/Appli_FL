@@ -8,6 +8,7 @@ if (!isset($_SESSION['id'])) {
 
 $pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
 
+
 if (isset($_GET['id_recettes'])) {
     $id_recette = $_GET['id_recettes'];
 
@@ -21,60 +22,66 @@ if (isset($_GET['id_recettes'])) {
     if ($req_recettes->rowCount() > 0) {
         $recette = $req_recettes->fetch(PDO::FETCH_ASSOC);
 
-
         // Maintenant, vous pouvez utiliser les données de la recette pour pré-remplir le formulaire de modification
         $nom = $recette['nom'];
         $duree = $recette['duree'];
         $ingredients = $recette['ingredients'];
         $etapes = $recette['etapes'];
-        $img = $recette['img']; 
+        $img = $recette['img'];
 
         // Le formulaire de modification
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Récupérez les données soumises par le formulaire
-            $nom = htmlspecialchars($_POST['nom'], ENT_QUOTES, 'UTF-8');
-            $duree = $_POST['duree'];
-            $ingredients = htmlspecialchars($_POST['ingredients'], ENT_QUOTES, 'UTF-8');
-            $etapes = htmlspecialchars($_POST['etapes'], ENT_QUOTES, 'UTF-8');
-
             // Gestion du téléchargement de la nouvelle image
             if (isset($_FILES['nouvelle_img']) && $_FILES['nouvelle_img']['error'] === UPLOAD_ERR_OK) {
-                // Téléchargement de la nouvelle image réussi
-                $new_img = basename($_FILES['nouvelle_img']['name']);
+                // Vérification du poids du fichier
+                $fileSize = $_FILES['nouvelle_img']['size'];
+                $maxFileSize = 5 * 1024 * 1024; // 5 Mo en octets
 
-                // Vérification du type de fichier
-                $file_info = getimagesize($_FILES['nouvelle_img']['tmp_name']);
-
-                if ($file_info === false) {
-                    $error_img = 'Le fichier n\'est pas une image valide.';
-                } elseif (!in_array($file_info[2], array(IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF))) {
-                    $error_img = 'Seules les images au format JPG, PNG et GIF sont autorisées.';
+                if ($fileSize > $maxFileSize) {
+                    $error_img = 'Insérer une photo de 5 Mo maximum';
                 } else {
-                    // Supprimer l'ancienne image s'il y en a une
-                    if (!empty($img)) {
-                        unlink("ressources/img_recette/$img");
-                    }
+                    // Téléchargement de la nouvelle image réussi
+                    $new_img = basename($_FILES['nouvelle_img']['name']);
 
-                    // Déplacez le nouveau fichier image vers le dossier de destination
-                    $destination = "ressources/img_recette/$new_img";
-                    if (move_uploaded_file($_FILES['nouvelle_img']['tmp_name'], $destination)) {
-                        // Le déplacement du fichier a réussi, mettez à jour la base de données
-                        $update_query = "UPDATE recettes SET nom = :nom, duree = :duree, ingredients = :ingredients, etapes = :etapes, img = :new_img WHERE id_recettes = :id_recette";
-                        $update_req_recettes = $pdo->prepare($update_query);
-                        $update_req_recettes->bindParam(':nom', $nom, PDO::PARAM_STR);
-                        $update_req_recettes->bindParam(':duree', $duree, PDO::PARAM_INT);
-                        $update_req_recettes->bindParam(':ingredients', $ingredients, PDO::PARAM_STR);
-                        $update_req_recettes->bindParam(':etapes', $etapes, PDO::PARAM_STR);
-                        $update_req_recettes->bindParam(':new_img', $new_img, PDO::PARAM_STR);
-                        $update_req_recettes->bindParam(':id_recette', $id_recette, PDO::PARAM_INT);
+                    // Vérification du type de fichier
+                    $file_info = getimagesize($_FILES['nouvelle_img']['tmp_name']);
 
-                        if ($update_req_recettes->execute()) {
-                            $success = 'Recette mise à jour avec succès';
-                        } else {
-                            $error_img = 'Une erreur s\'est produite lors de la mise à jour de la recette.';
-                        }
+                    if ($file_info === false) {
+                        $error_img = 'Seules les photos au format JPG, JPEG, PNG et GIF sont autorisées';
+                    } elseif (!in_array($file_info[2], array(IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF))) {
+                        $error_img = 'Seules les photos au format JPG, JPEG, PNG et GIF sont autorisées';
                     } else {
-                        $error_img = 'Erreur lors du déplacement du fichier vers le dossier de destination.';
+                        // Supprimer l'ancienne image s'il y en a une
+                        if (!empty($img)) {
+                            unlink("ressources/img_recette/$img");
+                        }
+
+                        // Déplacez le nouveau fichier image vers le dossier de destination
+                        $destination = "ressources/img_recette/$new_img";
+                        if (move_uploaded_file($_FILES['nouvelle_img']['tmp_name'], $destination)) {
+                            // Le déplacement du fichier a réussi, mettez à jour la base de données
+                            $nom = htmlspecialchars($_POST['nom'], ENT_QUOTES, 'UTF-8');
+                            $duree = htmlspecialchars($_POST['duree'], ENT_QUOTES, 'UTF-8');
+                            $ingredients = htmlspecialchars($_POST['ingredients'], ENT_QUOTES, 'UTF-8');
+                            $etapes = htmlspecialchars($_POST['etapes'], ENT_QUOTES, 'UTF-8');
+
+                            $update_query = "UPDATE recettes SET nom = :nom, duree = :duree, ingredients = :ingredients, etapes = :etapes, img = :new_img WHERE id_recettes = :id_recette";
+                            $update_req_recettes = $pdo->prepare($update_query);
+                            $update_req_recettes->bindParam(':nom', $nom, PDO::PARAM_STR);
+                            $update_req_recettes->bindParam(':duree', $duree, PDO::PARAM_INT);
+                            $update_req_recettes->bindParam(':ingredients', $ingredients, PDO::PARAM_STR);
+                            $update_req_recettes->bindParam(':etapes', $etapes, PDO::PARAM_STR);
+                            $update_req_recettes->bindParam(':new_img', $new_img, PDO::PARAM_STR);
+                            $update_req_recettes->bindParam(':id_recette', $id_recette, PDO::PARAM_INT);
+
+                            if ($update_req_recettes->execute()) {
+                                $success = 'Recette mise à jour avec succès';
+                            } else {
+                                $error_img = 'Une erreur s\'est produite lors de la mise à jour de la recette.';
+                            }
+                        } else {
+                            $error_img = 'Erreur lors du déplacement du fichier vers le dossier de destination.';
+                        }
                     }
                 }
             } else {
@@ -100,12 +107,13 @@ if (isset($_GET['id_recettes'])) {
                 }
             }
         }
-    } 
+    }
 } else {
     // Aucun ID de recette spécifié dans l'URL
     $error_img = 'Aucun ID de recette spécifié dans l\'URL.';
 }
 ?>
+
 
 
 

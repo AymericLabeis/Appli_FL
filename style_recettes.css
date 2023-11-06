@@ -132,14 +132,17 @@ nav{
   border-color: rgb(4, 63, 63);
 }
 #categories {
-  padding: 10px;
-  font-size: 20px;
+  font-family: 'Spicy Rice', cursive;
+  padding: 5px 10px;
+  text-align: center;
+  justify-content: center;
+  font-size: 25px;
   border-radius: 5px;
   color: rgb(136, 50, 16);
   margin-left: 15px;
   border: 3px solid rgb(6, 92, 92);
   border-radius: 10px;
-  background-color: rgb(255, 136, 57);
+  background-color: rgb(212, 165, 11);
 }
 #categories:hover{
   color:#141414;
@@ -258,7 +261,7 @@ nav{
  margin: 3px;
 }
 #categories {
-  font-size: 15px;
+  font-size: 18px;
   margin: 3px;
 }
 .container_recette{
@@ -314,7 +317,7 @@ font-size: 15px;
   #categories {
     margin-left: 10px;
     width: 110px;
-    font-size: 15px;
+    font-size: 18px;
   }
   .recette{
     width: 650px;

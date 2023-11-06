@@ -69,6 +69,7 @@ function dragMove(event) {
     var rotationSpeed = deltaX * rotationSpeedFactor;
 
     // Appliquer la rotation avec la vitesse
+    Roue.style.webkitTransform  = 'rotate(' + degrees + 'deg)';
     Roue.style.transform = 'rotate(' + degrees + 'deg)';
     Roue.style.transition = 'transform ' + Math.abs(rotationSpeed) + 'ms linear';
   }
