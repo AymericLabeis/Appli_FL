@@ -100,14 +100,14 @@ nav{
   align-items: center;
   justify-content: center;
   position: relative;
+  display: flex;
 }
 
 /*div barre de recherche*/
-.recherche_Recette{
-  padding: 10px;
+.recherche_Recette,.recherche_categories{
+  padding: 10px 0px;
   border-radius: 5px;
   display: flex;
-  justify-content: center;
 }
 .recherche_Recette input[type="text"] {
   width: 560px;
@@ -117,21 +117,20 @@ nav{
   border-radius: 10px;
   z-index: 1000;
 }
-#rechercher {
+.rechercher {
   padding: 10px;
   font-size: 20px;
   border-radius: 5px;
-  /*background-color: #4CAF50;*/
   color: rgb(80, 79, 79);
   margin-left: 15px;
   border: 3px solid rgb(6, 92, 92);
   border-radius: 10px;
 }
-#rechercher:hover{
+.rechercher:hover{
   color:#141414;
   border-color: rgb(4, 63, 63);
 }
-#categories {
+.categories {
   font-family: 'Spicy Rice', cursive;
   padding: 5px 10px;
   text-align: center;
@@ -144,11 +143,38 @@ nav{
   border-radius: 10px;
   background-color: rgb(212, 165, 11);
 }
-#categories:hover{
+.categories:hover{
   color:#141414;
   border-color: rgb(18, 63, 4);
 }
+#listeC {
+  margin-top: 10px;
+  display: none;
+  position: absolute;
+ justify-content: center;
+  list-style: none; 
+  z-index: 1200;
+  margin-left: 15px;
+}
+#listeC li { 
+  font-family: 'Spicy Rice', Verdana, Geneva, Tahoma, sans-serif;
+  letter-spacing: 1px;
+  color: #000000;
+  font-size: 25px; 
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  background-color:rgb(232, 230, 230); 
+  border: 2px solid rgb(6, 92, 92);
+  border-radius: 5px; 
+  cursor: pointer; 
+}
+#listeC a { 
+  text-decoration: none;
+}
+#listeC li:hover {
+ color:rgb(6, 92, 92);
 
+}
 .container_recette {
   width: 100%;
   justify-content: center;
@@ -245,9 +271,10 @@ nav{
   .logo_title, .footerDesktop{
     display: none;
  }
- .recherche_Recette{
-  width: 100%;
+ .menu{
   background-color: rgba(0, 0, 0, 0.4);
+ }
+ .recherche_Recettes{
   position: fixed;
   top: 0px;
 }
@@ -256,18 +283,21 @@ nav{
   font-size: 15px;
   margin: 3px;
 }
-#rechercher {
+.rechercher {
  font-size: 15px;
  margin: 3px;
 }
-#categories {
-  font-size: 18px;
+.categories {
+  font-size: 19px;
   margin: 3px;
 }
+#listeC {
+  margin-left: 0px;
+  font-size: 5px;
+}
 .container_recette{
-  margin-top: 100px;
+  margin-top: 30px;
   margin-bottom: 130px;
-
  }
  .recette{
   width: 550px;
@@ -314,11 +344,7 @@ font-size: 15px;
     width: 110px;
     font-size: 15px;
   }
-  #categories {
-    margin-left: 10px;
-    width: 110px;
-    font-size: 18px;
-  }
+  
   .recette{
     width: 650px;
    }

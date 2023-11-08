@@ -33,6 +33,18 @@ document.addEventListener('DOMContentLoaded', function () {
   afficherCartes();
 });
 
+function myCategories() {
+  var liste = document.getElementById("listeC");
+
+  if (liste.style.display === "none" || liste.style.display === "") {
+    liste.style.display = "block";
+  } else {
+    liste.style.display = "none";
+  }
+}
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
   localStorage.clear();
 });

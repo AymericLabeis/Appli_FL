@@ -38,6 +38,36 @@ if (isset($_GET['recette'])) {
   // Récupération des résultats
   $recettes = $recette->fetchAll(PDO::FETCH_ASSOC);
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (isset($_POST['categories'])) {
+      $categorie = $_POST['categories'];
+
+      // Établir une connexion à votre base de données (à configurer en fonction de votre environnement)
+      $pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
+
+      // Préparez la requête SQL en fonction de la catégorie sélectionnée
+      $sql = "SELECT * FROM categories WHERE id_categories = :categorie";
+
+      // Préparez la requête
+      $stmt = $pdo->prepare($sql);
+
+      // Liez la valeur de la catégorie sélectionnée à la requête
+      $stmt->bindParam(':categorie', $categorie, PDO::PARAM_STR);
+
+      // Exécutez la requête
+      $stmt->execute();
+
+      // Récupérez les résultats
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      
+      // Vous pouvez ensuite traiter les résultats et les afficher
+      foreach ($result as $row) {
+          // Traitez chaque ligne de résultat ici
+      }
+  }
+}
+
+
 ?>
 <!DOCTYPE html >
 <html lang="fr-FR">
@@ -64,10 +94,18 @@ if (isset($_GET['recette'])) {
    <div class="menu">
     <form class="recherche_Recette" method="get">
         <input type="text" name="recette" placeholder="Rechercher une recette" value="<?= htmlspecialchars($_GET['recette'] ?? '') ?>">
-        <button id="rechercher" type="submit">Rechercher</button>
-        <a id="categories">Catégories</a>
-   </form>
-   
+        <button class="rechercher" type="submit">Rechercher</button>
+    </form>
+        <form class="recherche_Categories" method="post">
+        <button class="categories" type="button" onclick=" myCategories()">Catégories</button>
+        <ul id="listeC" name="categories">
+          <li value="01">Nouveauté</li>
+          <li value="02">Fruits</li>
+          <li value="03">Légumes</li>
+          <li value="04">Facile</li>
+          <li value="05">Rapide</li>
+        </ul>
+    </form>
    </div>  
   </nav>
   
