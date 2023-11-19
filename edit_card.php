@@ -212,7 +212,7 @@ if (isset($success)) {
 <header>
     <div class="logo_title">
         <a href="index.php" id="InitialMonth"><img class="logo" src="ressources/logo2.png" alt="Image du logo"></a>
-        <h1 class="titre">Mes fruits et légumes de saison</h1>
+        <h1 class="titre">Fusion Craft</h1>
     </div>
 </header>
 <a href="mesFiches.php" class="btn_MesFiches" >Mes fiches</a>
@@ -293,7 +293,7 @@ if (isset($success)) {
         <a href="index.php">Accueil</a>
     </div>
     <div class="footerR">
-        <a href="fruits_legumes.php">fruits_legumes</a>
+        <a href="Recettes.php">Recettes</a>
     </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

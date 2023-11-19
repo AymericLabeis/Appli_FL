@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_fruits_legumes']))
     </div>
     <div class="logo_title">
     <a  href="index.php" id="InitialMonth"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
-        <h1 class="titre">Mes fruits et légumes de saison</h1>  
+        <h1 class="titre">Fusion Craft</h1>  
     </div>
 </header>
 <a href="add_card.php"><button type="submit" class="ajouter">Ajouter une fiche</button></a>

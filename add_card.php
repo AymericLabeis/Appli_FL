@@ -122,7 +122,7 @@ if (strlen($libelle) < 2 || strlen($libelle) > 20) {
   <header>
     <div class="logo_title">
       <a  href="index.php" id="InitialMonth"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
-      <h1 class="titre">Mes fruits et légumes de saison</h1>  
+      <h1 class="titre">Fusion Craft</h1>  
   </header>
   <a href="mesFiches.php" class="btn_MesFiches" >Mes fiches</a>
   <div class="formCard">

@@ -32,7 +32,7 @@ header{
 .footerMobil {
   display: flex;
   justify-content: space-between;
-  height: 80px;
+  height: 60px;
   width:100%;
   border: 4px solid rgb(6, 92, 92) ;
   border-radius: 2px;
@@ -43,7 +43,7 @@ header{
 }
 .footerMobil  a{
   text-align: center;
-  font-size: 3em;
+  font-size: 2.5em;
   font-family: 'Spicy Rice', cursive;
   letter-spacing: 3px;
   text-decoration: none;
@@ -87,11 +87,12 @@ header{
   border-color: rgb(4, 63, 63);
 }
 .titre{
-  font-family: 'Spicy Rice', cursive;
-  letter-spacing: 3px;
-  display: table; 
-  font-size: 40px;
+  font-family: 'Spicy Rice', Verdana, Geneva, Tahoma, sans-serif;
+  letter-spacing: 4px;
+  font-size: 55px;
   text-align: center;
+  margin-left: 40px;
+  z-index: 1000;  
 }
 nav{
   width: 100%;
@@ -108,6 +109,7 @@ nav{
   padding: 10px 0px;
   border-radius: 5px;
   display: flex;
+  
 }
 .recherche_Recette input[type="text"] {
   width: 560px;
@@ -221,7 +223,7 @@ nav{
   border: 5px solid rgb(255, 255, 255);
 }
 .info {
-  margin: 10px 20px;
+  margin: 20px ;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -267,61 +269,75 @@ nav{
   text-align: justify; 
 }
 
-@media screen and (max-width:768px){
+@media screen and (max-width:767px){
   .logo_title, .footerDesktop{
     display: none;
  }
  .menu{
+  border-radius: 2px;
   background-color: rgba(0, 0, 0, 0.4);
  }
  .recherche_Recettes{
   position: fixed;
   top: 0px;
 }
+.recherche_Recette,.recherche_categories{
+  width: 100%;
+  
+}
  .recherche_Recette input[type="text"] {
-  width: 340px;
+  width: 95%;
   font-size: 15px;
   margin: 3px;
-}
-.rechercher {
- font-size: 15px;
- margin: 3px;
+  margin-left: 10px;
 }
 .categories {
+  justify-content: center;
   font-size: 19px;
-  margin: 3px;
+  margin: 3px 10px;
 }
+
 #listeC {
-  margin-left: 0px;
-  font-size: 5px;
+  margin-top: 2px;
+  margin-left: 10px;
+  
+}
+#listeC li{
+  font-size: 18px;
 }
 .container_recette{
-  margin-top: 30px;
+  margin-top: 10px;
   margin-bottom: 130px;
  }
  .recette{
-  width: 550px;
+  width: 90%;
+  border: 3px solid rgb(255, 255, 255);
+  border-radius: 8px;
  }
  .recetteP img {
-  max-width: 500px;
+  max-width: 95%;
+  border: 3px solid rgb(255, 255, 255);
 }
 .recetteP h1 {
-  font-size: 25px;
+  font-size: 20px;
   margin: 10px 20px;
 }
+.info{
+  margin: 10px;
+}
 .info h3{
-font-size: 15px;
+font-size: 10px;
 }
 .recetteA h2 {
-  font-size: 20px;
+  font-size: 17px;
  
 }
 .ingredients p{
- font-size: 18px;
+ font-size: 15px;
  
 }
 .etapes p{ 
-  font-size: 15px;
+  font-size: 14px;
 }
 .footerMobil{
   display:flex;
@@ -333,23 +349,33 @@ font-size: 15px;
     width: 80px;
   }
   .titre{
-    font-size: 30px;
+    font-size: 35px;
+    margin-left: 20px;
   }
-  .recherche_Recette input[type="text"] {
-    width: 400px;
-    font-size: 15px;
+  .menu{
+    width: 100%;
   }
-  #rechercher {
-    margin-left: 10px;
-    width: 110px;
-    font-size: 15px;
+  .recherche_Recette{
+    width: 100%;
+    justify-content: center;
+  }
+   .recherche_Recette input[type="text"] {
+    width: 100%;
+    font-size: 18px;
+    margin: 3px;
+    margin-left: 70px;
   }
   
+  .categories {
+    font-size: 22px;
+    margin: 3px 70px;
+    margin-left: 10px;
+  }
   .recette{
-    width: 650px;
+    width: 90%;
    }
    .recetteP img {
-    max-width: 600px;
+    max-width: 95%;
   }
   .recetteP h1 {
     font-size: 30px;
@@ -368,6 +394,14 @@ font-size: 15px;
     }
     .etapes p{ 
       font-size: 18px;
+    }
+    #listeC {
+      margin-top: 2px;
+      margin-left: 10px;
+      
+    }
+    #listeC li{
+      font-size: 21px;
     }
   }
 

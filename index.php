@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="fruits et légumes de saison">
+    <meta name="description" content="Fusion Craft" content="fruits et légumes de saison">
     <title>Acceuil</title>
     <link href="https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <header>
     <div class="logo_title">
       <a  href="index.php" id="InitialMonth"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
-      <h1 class="titre">Mes fruits et légumes de saison</h1>  
+      <h1 class="titre">Fusion Craft</h1>  
     </div>
   </header>
   <nav>
@@ -127,10 +127,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Si l'utilisateur est connecté en tant qu'utilisateur non administrateur, affichez des options spécifiques
         echo '<a href="compte.php"><li>Mon compte</li></a>';
         echo '<a href="mesRecettes.php"><li>Mes recettes</li></a>';
+        echo '<a href="contact.php"><li>Contact</li></a>';
         echo '<a href="index.php?logout=true"><li>Déconnexion</li></a>';
+        
     } else {
         // Si l'utilisateur n'est pas connecté, affichez seulement l'option "Connexion"
         echo '<a href="connexion.php"><li id="compte-li-connexion">Connexion</li></a>';
+        echo '<a href="contact.php"><li>Contact</li></a>';
     }
     ?>
     </ul>

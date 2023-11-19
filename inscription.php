@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <header>
     <div class="logo_title">
       <a  href="index.php" id="InitialMonth"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
-      <h1 class="titre">Mes fruits et légumes de saison</h1>  
+      <h1 class="titre">Fusion Craft</h1>  
     </div>
   </header>
   <div class="box-account">
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="utilisateur">Pseudo</label>
                 <input type="text" id="utilisateur" name="utilisateur" placeholder="Entrez un pseudo" maxlength="24"value="<?= htmlspecialchars($name) ?>">
                 <img src="ressources/check.svg" alt="icone de validation" class="icone-verif">
-                <span class="message-alerte">Choisissez un pseudo entre 3 et 24 caractères</span>
+                <span class="message-alerte">Choisissez un pseudo entre 3 et 24 caractères.</span>
                 <?php if (!empty($errorName)) : ?>
                 <div class="error-account"><?= $errorName?></div>
             <?php endif; ?>

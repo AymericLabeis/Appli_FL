@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <header>
     <div class="logo_title">
       <a  href="index.php" id="InitialMonth"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
-      <h1 class="titre">Mes recettes de fruits et légumes</h1> 
+      <h1 class="titre">Fusion Craft</h1> 
     </div>
   </header>
 
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    <div class="menu">
     <form class="recherche_Recette" method="get">
         <input type="text" name="recette" placeholder="Rechercher une recette" value="<?= htmlspecialchars($_GET['recette'] ?? '') ?>">
-        <button class="rechercher" type="submit">Rechercher</button>
+        
     </form>
         <form class="recherche_Categories" method="post">
         <button class="categories" type="button" onclick=" myCategories()">Catégories</button>
