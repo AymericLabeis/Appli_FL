@@ -265,6 +265,9 @@ button:active {
     100%{ color: transparent; font-size: 30px ; background-color: transparent; border: none; display: none;}
   }
   @media screen and (max-width:767px){
+    body {
+        background:url(ressources/background_mobil.jpg) repeat-y;
+      }
     .logo_title{
     display: none;
     } 
@@ -308,6 +311,12 @@ button:active {
         font-size: 13px;
 
     }
+    @-webkit-keyframes ease-success{
+        0%{ color: transparent; font-size: 5px ; background-color: #ffffff;border: 5px solid rgb(6, 92, 92);}
+        30%{ color: rgb(17,90,60); font-size: 15px ;  background-color: #ffffff; border: 5px solid rgb(6, 92, 92);}
+        80%{ color: rgb(17,90,60); font-size: 15px ;  background-color: #ffffff; border: 5px solid rgb(6, 92, 92);}
+        100%{ color: transparent; font-size: 15px ; background-color: transparent; border: none; display: none;}
+      }
     }
     @media screen and (min-width:768px) and (max-width:1279px) {
         .logo{

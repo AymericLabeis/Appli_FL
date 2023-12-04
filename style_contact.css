@@ -105,6 +105,11 @@
     width: 100%;
     
   }
+  .Hello{
+    text-align: center;
+    font-size: 45px;
+    padding: 10px;
+  }
   .contact{
     
     position: relative;
@@ -128,11 +133,12 @@
   .presentation{
     width: 50%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: italic;
     padding:10px;
   }
    .info{
     letter-spacing: 4px;
-    font-size: 30px;
+    font-size: 25px;
     text-align: center;
     margin-left: 10px;
     z-index: 1000;   
@@ -145,48 +151,76 @@
      
   }
   .mail{
+    font-style: italic;
     letter-spacing: 4px;
-    font-size: 30px;
+    font-size: 25px;
     text-align: center;
     margin-left: 10px;
      margin: 20px;
   }
-  .tel{
-    letter-spacing: 4px;
-    font-size: 30px;
-    text-align: center;
-    margin-left: 10px;
-    margin: 20px;
-     
+  .mail a{
+    color: black;
+  }
+  .mail a:hover{
+    color: rgb(13, 54, 108);
   }
   @media screen and (max-width:767px){
-   
-  
+   body {
+    background:url(ressources/background_mobil.jpg) repeat-y;
+    }
  .logo,.titre,.button_Recettes,.RoueSelect,.footerDesktop,.flecheG,.flecheD{
-     display: none;
+   display: none;
   }
- #mois{
-   display:block;
- }
  .footerMobil{
    display:flex;
    }
+   .Hello{
+    text-align: center;
+    font-size: 30px;
+    padding: 2px;
+  }
    .contact{
     display:block;
    }
    .info{
-    font-size: 16px;
+    padding: 5px;
+    font-size: 15px;
    }
    .portrait, .presentation{
     width: 100%;
    }
    .portrait{
-    margin: 10px auto;
+    margin: auto;
     max-width: 700px;
+    align-items: center;
+    justify-content: center;
    }
-   .mail,.tel{
-    
-    font-size: 16px;
-    
+   .mail{
+    font-size: 20px;
   }
+ 
  }
+ @media screen and (min-width:768px) and (max-width:1279px)  {
+ 
+ .logo{
+  width: 60px;
+}
+.titre{
+  font-size: 35px;
+  margin-left: 20px;
+}
+.Hello{
+  text-align: center;
+  font-size: 35px;
+  padding: 5px;
+}
+ .info{
+  font-size: 16px;
+ }
+ .portrait{
+  max-width: 250px;
+ }
+ .mail{
+  font-size: 20px;
+}
+}

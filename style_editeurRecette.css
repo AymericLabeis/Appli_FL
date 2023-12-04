@@ -135,7 +135,7 @@ header{
  .formRecette {
   width: 900px;
   margin: 30px auto; 
-  padding: 5px 20px;
+  padding: 5px 10px;
   display: flex;
   justify-content: center;
   border: 3px solid rgb(6, 92, 92);
@@ -246,6 +246,9 @@ max-width: 100%;
   100%{ color: transparent; font-size: 30px ; background-color: transparent; border: none; display: none;}
 }
 @media screen and (max-width:767px){
+  body {
+    background:url(ressources/background_mobil.jpg) repeat-y;
+  }
   .logo_title, .footerDesktop{
     display: none;
  }
@@ -265,18 +268,22 @@ max-width: 100%;
 .formRecette {
   margin-top: 80px;
   width: 90%;
-  max-width: 450px;
-  margin-bottom: 130px;
+  max-width: 430px;
+  margin-bottom: 100px;
+  
 }
 .formRecette label {
   margin-left: 10px;
   width: 90%;
-  font-size: 18px;
+  font-size: 16px;
 }
 .formRecette input[type="text"],.formRecette input[type="number"],.formRecette textarea,.formRecette input[type="file"] {
   width: 95%;
   margin-left: 10px;
 }  
+.formRecette input[type="text"],.formRecette input[type="number"]{
+    height: 30px;
+}
 .formRecette input[type="number"]{
   width: 50%;
 }

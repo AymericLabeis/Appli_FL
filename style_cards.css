@@ -124,7 +124,7 @@ header{
 .formCard {
   width: 500px;
   margin: 10px auto; 
-  padding: 20px;
+  padding: 10px;
   border: 5px solid rgb(53, 20, 2);
   border-radius: 5px;
   background:url(ressources/face.jpg) repeat-y;
@@ -262,6 +262,9 @@ option {
 }
 
 @media screen and (max-width:767px){
+  body {
+    background:url(ressources/background_mobil.jpg) repeat-y;
+  }
   .logo_title, .footerDesktop{
     display: none;
  }
@@ -276,12 +279,13 @@ option {
     font-size: 18px;
    }
    .formCard{
+    padding: 8px;
     margin-top: 80px; 
-    margin-bottom: 130px;
+    margin-bottom: 100px;
     width: 80%;
   }
   label{
-    font-size: 18px;
+    font-size: 15px;
   }
   #mois_ids{
     width: 50%;

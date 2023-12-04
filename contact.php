@@ -18,14 +18,13 @@
       <h1 class="titre">Fusion Craft</h1>  
     </div>
   </header>
+<h1 class="Hello">Ravi de vous revoir!</h1>
 <div class="contact">
-<img class= "portrait" src="ressources/logo2.png" alt="Image du logo">
-<div class= "presentation" >
-<h2 class="info">Ravi de vous revoir!!!<br> N'hésitez pas à me contacter en utilisant les informations ci-dessous.</h2> 
-
-<h2 class= "mail">Adresse e-mail: aeazeezez@gggjifdg.fr<br><br>telephone:0686529517 </h2>
-
-</div>
+ <img class= "portrait" src="ressources/logo2.png" alt="Image du logo">
+  <div class= "presentation" >
+   <h2 class="info">Si vous avez des questions ou rencontrez un problème technique, n'hésitez pas à me contacter par e-mail en cliquant sur le lien ci-dessous.</h2> 
+   <h2 class="mail"><a href="mailto:aymeric-labeis@fusioncraft.fr">Envoyer un e-mail</a></h2>
+ </div>
 </div>
   
 <footer class="footerMobil">

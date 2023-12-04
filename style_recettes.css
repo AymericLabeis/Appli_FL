@@ -12,7 +12,6 @@ header{
   width:100%;
 }
 .footerDesktop{
- 
   width:100%;
   display: flex;
   background-color: #000000;
@@ -153,12 +152,13 @@ nav{
   margin-top: 10px;
   display: none;
   position: absolute;
- justify-content: center;
+  justify-content: center;
   list-style: none; 
   z-index: 1200;
   margin-left: 15px;
 }
-#listeC li { 
+#listeC button { 
+  width: 145px;
   font-family: 'Spicy Rice', Verdana, Geneva, Tahoma, sans-serif;
   letter-spacing: 1px;
   color: #000000;
@@ -169,11 +169,12 @@ nav{
   border: 2px solid rgb(6, 92, 92);
   border-radius: 5px; 
   cursor: pointer; 
+  display: block;
 }
 #listeC a { 
   text-decoration: none;
 }
-#listeC li:hover {
+#listeC button:hover {
  color:rgb(6, 92, 92);
 
 }
@@ -195,7 +196,7 @@ nav{
   margin: 20px auto;
   text-align: center;
   border-radius: 15px;
-  background-image: url('ressources/bg_marbre.jpg');
+  background-image: url('ressources/bg_recette.webp');
   background-color: rgba(207, 207, 207, 0.2);
   background-size: 100%;
   box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
@@ -270,6 +271,9 @@ nav{
 }
 
 @media screen and (max-width:767px){
+  body {
+    background:url(ressources/background_mobil.jpg) repeat-y;
+  }
   .logo_title, .footerDesktop{
     display: none;
  }
@@ -301,9 +305,12 @@ nav{
   margin-top: 2px;
   margin-left: 10px;
   
+  
 }
-#listeC li{
+#listeC button{
   font-size: 18px;
+  width: 115px;
+  
 }
 .container_recette{
   margin-top: 10px;
@@ -399,8 +406,10 @@ font-size: 10px;
       margin-top: 2px;
       margin-left: 10px;
       
+      
     }
-    #listeC li{
+    #listeC button{
+      width: 130px;
       font-size: 21px;
     }
   }

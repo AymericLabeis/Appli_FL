@@ -159,7 +159,57 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+$(document).ready(function() {
+  const carteInput = $('#carte');
+  const suggestionsList = $('#suggestionsList');
 
+  carteInput.on('input', function() {
+    const searchTerm = carteInput.val();
+
+    // Faites une requête AJAX pour récupérer les suggestions depuis le fichier PHP
+    $.ajax({
+      url: 'index.php',
+      type: 'GET',
+      dataType: 'json',
+      data: { carte: searchTerm },
+      success: function(data) {
+        // Afficher les suggestions
+        displaySuggestions(data);
+      },
+      error: function(xhr, status, error) {
+console.log('Erreur de requête AJAX : ', xhr.responseText);
+console.log('Statut de la requête : ', status);
+console.log('Erreur : ', error);
+}
+    });
+  });
+
+  function displaySuggestions(suggestions) {
+suggestionsList.empty();
+
+suggestions.forEach(suggestion => {
+// Assurez-vous d'accéder à la propriété correcte de votre objet
+const listItem = $('<li>').text(suggestion.libelle); 
+listItem.on('click', function() {
+  carteInput.val(suggestion.libelle);
+  suggestionsList.hide();
+});
+
+suggestionsList.append(listItem);
+});
+
+suggestionsList.show();
+}
+
+
+
+  // Cacher la liste de suggestions lorsque l'utilisateur clique à l'extérieur
+  $(document).on('click', function(e) {
+    if (!$(e.target).closest('#suggestionsList, #carte').length) {
+      suggestionsList.hide();
+    }
+  });
+});
 
 
 

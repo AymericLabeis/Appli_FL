@@ -41,31 +41,17 @@ if (isset($_GET['recette'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_POST['categories'])) {
       $categorie = $_POST['categories'];
-
-      // Établir une connexion à votre base de données (à configurer en fonction de votre environnement)
-      $pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
-
-      // Préparez la requête SQL en fonction de la catégorie sélectionnée
-      $sql = "SELECT * FROM categories WHERE id_categories = :categorie";
-
-      // Préparez la requête
-      $stmt = $pdo->prepare($sql);
-
-      // Liez la valeur de la catégorie sélectionnée à la requête
-      $stmt->bindParam(':categorie', $categorie, PDO::PARAM_STR);
-
-      // Exécutez la requête
-      $stmt->execute();
-
-      // Récupérez les résultats
-      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      
-      // Vous pouvez ensuite traiter les résultats et les afficher
-      foreach ($result as $row) {
-          // Traitez chaque ligne de résultat ici
-      }
+ 
+      $recette = $pdo->prepare('SELECT *
+          FROM recettes
+          WHERE id_categories = :categorie
+          ORDER BY  id_recettes DESC');
+      $recette->bindParam(':categorie', $categorie, PDO::PARAM_STR);
+      $recette->execute();
+      $recettes = $recette->fetchAll(PDO::FETCH_ASSOC);
   }
 }
+
 
 
 ?>
@@ -98,12 +84,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
         <form class="recherche_Categories" method="post">
         <button class="categories" type="button" onclick=" myCategories()">Catégories</button>
-        <ul id="listeC" name="categories">
-          <li value="01">Nouveauté</li>
-          <li value="02">Fruits</li>
-          <li value="03">Légumes</li>
-          <li value="04">Facile</li>
-          <li value="05">Rapide</li>
+        <ul id="listeC" >
+          <button value="01" type="submit" name="categories">Nouveauté</button>
+          <button value="02" type="submit" name="categories">Fruits</button>
+          <button value="03" type="submit" name="categories">Légumes</button>
+          <button value="04" type="submit" name="categories">Facile</button>
+          <button value="05" type="submit" name="categories">Rapide</button>
         </ul>
     </form>
    </div>  
@@ -119,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a href="#ancre<?= $recette['id_recettes'] ?>">
     <h1><?= $recette['nom'] ?></h1>
     <img src="ressources/img_recette/<?= $recette['img'] ?>" alt="<?= $recette['img'] ?>">
-    <div class="info">
+    <div id="ancre<?= $recette['id_recettes'] ?>" class="info">
       <h3 class="duree ">Durée: <?= $recette['duree'] ?> min</h3>
       <h3 class="creer">Crée le: <?= date('d/m/Y', strtotime($recette['created_at'])) ?></h3>
       <h3 class="modifier">Modifié le: <?= date('d/m/Y', strtotime($recette['updated_at'])) ?></h3>
@@ -127,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       </a>
  
-    <div id="ancre<?= $recette['id_recettes'] ?>" class="recetteA">
+    <div  class="recetteA">
     <h2>Ingrédients :</h2>
     <div class="ingredients">
       <p><?= nl2br(trim($recette['ingredients']))?></p>

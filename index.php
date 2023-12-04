@@ -29,20 +29,34 @@ $fruit_legume->execute();
 $fruits_legumes = $fruit_legume->fetchAll(PDO::FETCH_ASSOC);
 
 
+
 if (isset($_GET['carte'])) {
-  // Requête SQL pour rechercher des recettes en fonction du terme de recherche
-  $query = 'SELECT * FROM fruits_legumes WHERE libelle LIKE :searchTerm
-  ORDER BY libelle ASC';
-  $fruit_legume = $pdo->prepare($query);
+    // Requête SQL pour rechercher des recettes en fonction du terme de recherche
+    $query = 'SELECT * FROM fruits_legumes WHERE libelle LIKE :searchTerm ORDER BY libelle ASC';
+    $fruit_legume = $pdo->prepare($query);
 
-  // Paramètre du terme de recherche avec le caractère joker "%" pour rechercher des correspondances partielles
-  $searchTerm = '%' . $_GET['carte'] . '%';
-  $fruit_legume->bindParam(':searchTerm', $searchTerm, PDO::PARAM_STR);
-  $fruit_legume->execute();
+    // Paramètre du terme de recherche avec le caractère joker "%" pour rechercher des correspondances partielles
+    $searchTerm = '%' . $_GET['carte'] . '%';
+    $fruit_legume->bindParam(':searchTerm', $searchTerm, PDO::PARAM_STR);
+    $fruit_legume->execute();
 
-  // Récupération des résultats
-  $fruits_legumes = $fruit_legume->fetchAll(PDO::FETCH_ASSOC);
+    // Récupération des résultats
+    $fruits_legumes = $fruit_legume->fetchAll(PDO::FETCH_ASSOC);
+
+    // Renvoie les suggestions au format JSON
+  /*  $suggestionQuery = 'SELECT libelle FROM fruits_legumes WHERE libelle LIKE :searchTerm ORDER BY libelle ASC';
+    $suggestionStmt = $pdo->prepare($suggestionQuery);
+    $suggestionStmt->bindParam(':searchTerm', $searchTerm, PDO::PARAM_STR);
+    $suggestionStmt->execute();
+    $suggestions = $suggestionStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Renvoie les suggestions au format JSON
+    echo json_encode($suggestions);
+    exit();*/
 }
+
+
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['F_L'])) {
@@ -87,10 +101,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 ?>
-
 <!DOCTYPE html >
 <html lang="fr-FR">
 <head>
+
+  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Fusion Craft" content="fruits et légumes de saison">
@@ -102,6 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
   <header>
+  
     <div class="logo_title">
       <a  href="index.php" id="InitialMonth"><img class= "logo" src="ressources/logo2.png" alt="Image du logo"></a>
       <h1 class="titre">Fusion Craft</h1>  
@@ -111,7 +127,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      <div class="menu">
       <div class ="recherche_FL">
        <form class="formSearch" method="get">
-        <input type="text" name="carte" placeholder="Rechercher un fruit ou un légume" value="<?= htmlspecialchars($_GET['carte'] ?? '') ?>">
+        <input type="text" id="carte" name="carte" placeholder="Rechercher un fruit ou un légume" value="<?= htmlspecialchars($_GET['carte'] ?? '') ?>">
+        <ul id="suggestionsList">
+          
+        </ul>
         <button type="submit" class="rechercher">Rechercher</button>
        </form> 
     <button class="btn_compte" onclick=" myAccount()">≡</button>
@@ -227,7 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        <h2>Aymeric LABEIS copyright 2023</h2>
     </footer>
    
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
