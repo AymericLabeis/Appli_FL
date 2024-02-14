@@ -1,11 +1,12 @@
 <?php declare(strict_types=1);
-session_start(); 
 
-if (!isset($_SESSION['id'])) {
-  header('Location: error404.php');
-  exit(); 
-}
-$pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
+require_once('database.php');
+require_once('session_function.php');
+
+$pdo = connectDB();
+startSession();
+updateLastAccess();
+checkSession();
 
 $nom = '';
 $duree = '';
@@ -17,7 +18,6 @@ $error_ingredients = '';
 $error_etapes = '';
 $error_img = '';
 $success= '';
-
 
 if (!empty($_POST)) {
   // Vérification des données du formulaire 

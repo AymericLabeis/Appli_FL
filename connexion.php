@@ -1,10 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 session_start(); 
 
-$pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
+require_once('database.php');
+$pdo = connectDB();
+
 $error_user = "";
 $error_mdp = "";
 $pseudo = '';
+
+function genererToken() {
+    return bin2hex(random_bytes(32));
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pseudo = htmlspecialchars($_POST['utilisateur'], ENT_QUOTES, 'UTF-8');
@@ -16,12 +22,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $query->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
-        // L'utilisateur existe, vérifiez maintenant le mot de passe
+        // L'utilisateur existe, vérifie maintenant le mot de passe
         if (password_verify($password, $user['password'])) {
-            // Le mot de passe est valide
+            // Générez un token
+            $token = genererToken();
+            $timestamp = time();
+    
+            // Mettez à jour la base de données avec le nouveau token
+            $query = $pdo->prepare('UPDATE users SET token = ? WHERE id = ?');
+            $query->execute([$token, $user['id']]);
+    
+            // Stockez le token en session
             $_SESSION['id'] = $user['id']; 
             $_SESSION['pseudo'] = $pseudo; 
-            $_SESSION['role'] = $user['role']; 
+            $_SESSION['role'] = $user['role'];
+            $_SESSION['token'] = $token;
+            $_SESSION['timestamp'] = $timestamp; 
+           
             header("Location: index.php");
             exit();
         } else {

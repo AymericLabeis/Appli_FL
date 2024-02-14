@@ -1,12 +1,13 @@
 <?php declare(strict_types=1);
-session_start(); 
 
-if (!isset($_SESSION['id'])) {
-  header('Location: error404.php');
-  exit(); 
-}
+require_once('database.php');
+require_once('session_function.php');
 
-$pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
+$pdo = connectDB();
+startSession();
+updateLastAccess();
+checkSession();
+
 $id_utilisateur = $_SESSION['id'];
 
 $query = "SELECT r.* FROM recettes r
@@ -15,14 +16,8 @@ $query = "SELECT r.* FROM recettes r
           ORDER BY id_recettes DESC";
 
 $recette = $pdo->prepare($query);
-
-// Liez la valeur de l'identifiant de l'utilisateur
 $recette->bindParam(':id', $id_utilisateur, PDO::PARAM_INT);
-
-// Exécutez la requête
 $recette->execute();
-
-// Récupérez les résultats
 $recettes = $recette->fetchAll(PDO::FETCH_ASSOC);
 
 

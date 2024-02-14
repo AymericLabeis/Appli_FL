@@ -352,51 +352,51 @@ nav{
   border-color:rgb(6, 92, 92);
 }
 .janvier {
-  transform: rotate(30deg) translateX(0) translateY(-500px);
+  transform: rotate(30deg) translateY(-500px);
   background-image: linear-gradient(to right,#54cbdb, #4bbfd7);
 }
 .fevrier {
-  transform: rotate(60deg) translateX(0) translateY(-500px);
+  transform: rotate(60deg) translateY(-500px);
   background-image: linear-gradient(to right,#44b6d5, #35a1cf);
 }
 .mars {
-  transform: rotate(90deg) translateX(0) translateY(-500px);
+  transform: rotate(90deg) translateY(-500px);
   background-image: linear-gradient(to right,#2d97cc, #2388c8);
 }
 .avril {
-  transform: rotate(120deg) translateX(0) translateY(-500px);
+  transform: rotate(120deg) translateY(-500px);
   background-image: linear-gradient(to right,#93d330, #83c02b);
 }
 .mai {
-  transform: rotate(150deg) translateX(0) translateY(-500px);
+  transform: rotate(150deg) translateY(-500px);
   background-image: linear-gradient(to right,#7bb528, #669c21);
 }
 .juin {
-  transform: rotate(180deg) translateX(0) translateY(-500px);
+  transform: rotate(180deg) translateY(-500px);
   background-image: linear-gradient(to right,#5d901e, #4e7d19);
 }
 .juillet {
-  transform: rotate(210deg) translateX(0) translateY(-500px);
+  transform: rotate(210deg) translateY(-500px);
   background-image: linear-gradient(to right,#ffc003, #feb508);
 }
 .aout {
-  transform: rotate(240deg) translateX(0) translateY(-500px);
+  transform: rotate(240deg) translateY(-500px);
   background-image: linear-gradient(to right,#feac0c, #fe9814);
 }
 .septembre{
-  transform: rotate(270deg) translateX(0) translateY(-500px);
+  transform: rotate(270deg) translateY(-500px);
   background-image: linear-gradient(to right,#fc8d19, #fd801f);
 }
 .octobre{
-  transform: rotate(300deg) translateX(0) translateY(-500px);
+  transform: rotate(300deg) translateY(-500px);
   background-image: linear-gradient(to right,#d0b64c, #ccab3b);
 }
 .novembre{
-  transform: rotate(330deg) translateX(0) translateY(-500px);
+  transform: rotate(330deg) translateY(-500px);
   background-image: linear-gradient(to right,#caa532, #c4951b);
 }
 .decembre {
-  transform: rotate(0deg) translateX(0) translateY(-500px);
+  transform: rotate(0deg) translateY(-500px);
   background-image: linear-gradient(to right,#c18d0f, #c18d0f);
 }
 .RoueSelect h2{
@@ -701,44 +701,44 @@ nav{
     font-size: 20px;
  }
  .janvier {
-  transform: rotate(30deg) translateX(0) translateY(-300px);
+  transform: rotate(30deg)  translateY(-300px);
 }
 .fevrier {
-  transform: rotate(60deg) translateX(0) translateY(-300px);
+  transform: rotate(60deg)  translateY(-300px);
 }
 .mars {
-  transform: rotate(90deg) translateX(0) translateY(-300px); 
+  transform: rotate(90deg)  translateY(-300px); 
 }
 .avril {
-  transform: rotate(120deg) translateX(0) translateY(-300px); 
+  transform: rotate(120deg)  translateY(-300px); 
 }
 .mai {
-  transform: rotate(150deg) translateX(0) translateY(-300px);
+  transform: rotate(150deg)  translateY(-300px);
 }
 .juin {
-  transform: rotate(180deg) translateX(0) translateY(-300px);
+  transform: rotate(180deg)  translateY(-300px);
 }
 .juillet {
-  transform: rotate(210deg) translateX(0) translateY(-300px);
+  transform: rotate(210deg)  translateY(-300px);
 }
 .aout {
-  transform: rotate(240deg) translateX(0) translateY(-300px);
+  transform: rotate(240deg) translateY(-300px);
 }
 .septembre{
-  transform: rotate(270deg) translateX(0) translateY(-300px);
+  transform: rotate(270deg) translateY(-300px);
 }
 .octobre{
-  transform: rotate(300deg) translateX(0) translateY(-300px);
+  transform: rotate(300deg) translateY(-300px);
 }
 .novembre{
-  transform: rotate(330deg) translateX(0) translateY(-300px);
+  transform: rotate(330deg) translateY(-300px);
 }
 .decembre {
-  transform: rotate(0deg) translateX(0) translateY(-300px);
+  transform: rotate(0deg) translateY(-300px);
 }
 .carte{
-  width: 23%; /* Ajustez la largeur pour les écrans mobiles selon vos préférences */
-  aspect-ratio: 4/5; /* Ajustez le ratio hauteur/largeur selon vos besoins (2/3 pour 45%) */
+  width: 23%; 
+  aspect-ratio: 4/5; 
   margin: 5px 5px;
  }
  .face h2 {

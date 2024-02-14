@@ -1,6 +1,11 @@
-<?php
-session_start();
-$pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
+<?php declare(strict_types=1);
+require_once('database.php');
+require_once('session_function.php');
+
+$pdo = connectDB();
+startSession();
+updateLastAccess();
+checkSession();
 
 // Récupérez les informations de l'utilisateur actuel
 $userQuery = $pdo->prepare('SELECT * FROM users WHERE id = ?');

@@ -7,14 +7,29 @@ const moisActuelList= document.getElementById('mois');
 const rotationSpeedFactor = 0.8; 
 const postMonth = document.querySelector('.moisSelectionne');
 var activeButton = null;
-var initialX = 0;
+var initialX = 0, angleRotation = 0;
 var initialRotation = 180; 
-var angleRotation = 0;
 var rotationIncrement = 30;
 
 // Mettre à jour la liste déroulante avec le mois actuel
 moisActuelList.value = (moisActuel < 10 ? '0' : '') + moisActuel;
 console.log('Index list', moisActuelList.value);
+console.log('const mois actuel', moisActuel);
+
+// Position de la roue automatique en fonction du mois actuel
+function CurrentMonthRoue() {
+  var currentMonthIndex = moisActuel;
+  console.log('Index mois en cours', currentMonthIndex);
+  var currentButtonIndex = (-currentMonthIndex) % 12;
+  //console.log('button index', currentButtonIndex);
+
+  // Calcul l'angle de rotation pour placer le bouton en bas
+  var degrees = initialRotation + rotationIncrement * currentButtonIndex;
+  Roue.style.transform = 'rotate(' + degrees + 'deg)';
+  angleRotation = degrees;
+  console.log('rotation roue', angleRotation);
+}
+CurrentMonthRoue();
 
 function rotateRoue(degrees) {
   angleRotation += degrees;
@@ -29,26 +44,10 @@ function rotateRoue(degrees) {
   localStorage.setItem('selectedMonth', moisActuelList.value);
 }
 
-// Position de la roue automatique en fonction du mois actuel
-function CurrentMonthRoue() {
-  var currentMonthIndex = moisActuel;
-  console.log('Index mois en cours', currentMonthIndex);
-  var currentButtonIndex = (-currentMonthIndex) % 12;
-  //console.log('button index', currentButtonIndex);
-
-  // Calculer l'angle de rotation pour placer le bouton en bas
-  var degrees = initialRotation + rotationIncrement * currentButtonIndex;
-  Roue.style.transform = 'rotate(' + degrees + 'deg)';
-  angleRotation = degrees;
-  console.log('rotation roue', angleRotation);
-}
-CurrentMonthRoue();
-
 // Détecter l'envoi du formulaire et stocker le mois sélectionné dans le Local Storage
 moisActuelList.addEventListener('change', function () {
   var selectedMonth = parseInt(moisActuelList.value);
   localStorage.setItem('selectedMonth', selectedMonth);
-  bottomButton.classList.remove('agrandir-texte')
 });
 
 //Mouvement de la roue de selection       
@@ -97,7 +96,6 @@ function dragEnd() {
       console.log('Index Roue mois', monthRoue);
       document.getElementById('mois').value = monthRoue;
       localStorage.setItem('selectedMonth', monthRoue, );
-      bottomButton.classList.add('agrandir-texte')
     }
   }
   activeButton = null;
@@ -107,19 +105,16 @@ function dragEnd() {
 
 // affichage des cartes
 let carteRetournee = false;
-let carteA;
-let verouillage = false;
-
+let carteAff;
 cartes.forEach(carte => {
     carte.addEventListener('click', retourneCarte)
 })
 
 function retourneCarte(){
-    if(verouillage)return; 
-        this.childNodes[1].classList.toggle('active');
+    this.childNodes[1].classList.toggle('active');
     if(!carteRetournee){
   carteRetournee = true;
-        carteA = this;
+        carteAff = this;
         return;
     }
   carteRetournee = false;  
@@ -129,10 +124,10 @@ document.addEventListener('DOMContentLoaded', function () {
   let index = 0;
   function afficherCartes() {
       if (index < cartes.length) {
-          cartes[index].style.display = 'block'; // Afficher la carte
-          cartes[index].style.opacity = '1'; // Afficher la carte en ajustant l'opacité
+          cartes[index].style.display = 'block'; 
+          cartes[index].style.opacity = '1'; 
           index++;
-          setTimeout(afficherCartes, 50); // Afficher la prochaine carte après 2 secondes
+          setTimeout(afficherCartes, 50); 
       }
   }
   
@@ -159,57 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-$(document).ready(function() {
-  const carteInput = $('#carte');
-  const suggestionsList = $('#suggestionsList');
 
-  carteInput.on('input', function() {
-    const searchTerm = carteInput.val();
-
-    // Faites une requête AJAX pour récupérer les suggestions depuis le fichier PHP
-    $.ajax({
-      url: 'index.php',
-      type: 'GET',
-      dataType: 'json',
-      data: { carte: searchTerm },
-      success: function(data) {
-        // Afficher les suggestions
-        displaySuggestions(data);
-      },
-      error: function(xhr, status, error) {
-console.log('Erreur de requête AJAX : ', xhr.responseText);
-console.log('Statut de la requête : ', status);
-console.log('Erreur : ', error);
-}
-    });
-  });
-
-  function displaySuggestions(suggestions) {
-suggestionsList.empty();
-
-suggestions.forEach(suggestion => {
-// Assurez-vous d'accéder à la propriété correcte de votre objet
-const listItem = $('<li>').text(suggestion.libelle); 
-listItem.on('click', function() {
-  carteInput.val(suggestion.libelle);
-  suggestionsList.hide();
-});
-
-suggestionsList.append(listItem);
-});
-
-suggestionsList.show();
-}
-
-
-
-  // Cacher la liste de suggestions lorsque l'utilisateur clique à l'extérieur
-  $(document).on('click', function(e) {
-    if (!$(e.target).closest('#suggestionsList, #carte').length) {
-      suggestionsList.hide();
-    }
-  });
-});
 
 
 

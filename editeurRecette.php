@@ -1,10 +1,12 @@
 <?php declare(strict_types=1);
-session_start(); 
 
-if (!isset($_SESSION['id'])) {
-  header('Location: error404.php');
-  exit(); 
-}
+require_once('database.php');
+require_once('session_function.php');
+
+$pdo = connectDB();
+startSession();
+updateLastAccess();
+checkSession();
 
 $nom = '';
 $duree = '';

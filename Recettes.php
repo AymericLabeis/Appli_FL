@@ -10,7 +10,6 @@ $recettes=$recette->fetchAll(PDO::FETCH_ASSOC);
 if (isset($_GET['carte'])) {
     $selectedcarte = $_GET['carte']; // Récupérer le carte ou légume depuis l'URL
 
-    // Utiliser une requête préparée pour éviter les problèmes de sécurité
     $query = 'SELECT *
               FROM recettes
               WHERE FIND_IN_SET(:selectedcarte, fl_principal) > 0;

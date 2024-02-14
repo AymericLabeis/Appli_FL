@@ -1,22 +1,20 @@
 <?php declare(strict_types=1);
 
 session_start(); 
-// Vérifiez si le paramètre "logout" est présent dans l'URL
+// Vérifie si le paramètre "logout" est présent dans l'URL
 if (isset($_GET['logout']) && $_GET['logout'] === 'true') {
-    // Détruisez toutes les variables de session
+    // Détruit toutes les variables de session
     session_unset();
-    // Détruisez la session
     session_destroy();
-    // Redirigez l'utilisateur vers la page d'accueil (index.php) après la déconnexion
     header("Location: index.php");
     exit();
 }
+require_once('database.php');
+$pdo = connectDB();
 
-$pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
 $moisIndex = date('n');
 $moisList =""; 
-
-// Requête préparée pour récupérer les fruits et légumes du mois en cours
+// Requête préparée récupérant les fruits et légumes du mois en cours
 $query = 'SELECT flm.id_fruits_legumes, fl.libelle, fl.img, fl.img_dispo, fl.prix, fl.kilo_piece ,fl.vitamines, fl.mineraux
           FROM fruits_legumes_mois as flm
           INNER JOIN fruits_legumes as fl ON fl.id_fruits_legumes = flm.id_fruits_legumes
@@ -29,7 +27,6 @@ $fruit_legume->execute();
 $fruits_legumes = $fruit_legume->fetchAll(PDO::FETCH_ASSOC);
 
 
-
 if (isset($_GET['carte'])) {
     // Requête SQL pour rechercher des recettes en fonction du terme de recherche
     $query = 'SELECT * FROM fruits_legumes WHERE libelle LIKE :searchTerm ORDER BY libelle ASC';
@@ -39,8 +36,6 @@ if (isset($_GET['carte'])) {
     $searchTerm = '%' . $_GET['carte'] . '%';
     $fruit_legume->bindParam(':searchTerm', $searchTerm, PDO::PARAM_STR);
     $fruit_legume->execute();
-
-    // Récupération des résultats
     $fruits_legumes = $fruit_legume->fetchAll(PDO::FETCH_ASSOC);
 
     // Renvoie les suggestions au format JSON
@@ -54,9 +49,6 @@ if (isset($_GET['carte'])) {
     echo json_encode($suggestions);
     exit();*/
 }
-
-
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['F_L'])) {
@@ -137,20 +129,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <ul id="compte">
     <?php
     if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-        // Si l'utilisateur est connecté en tant qu'administrateur, affichez toutes les options avec des liens
         echo '<a href="compte.php"><li>Mon compte</li></a>';
         echo '<a href="mesRecettes.php"><li>Mes recettes</li></a>';
         echo '<a href="mesFiches.php"><li>Mes fiches</li></a>';
         echo '<a href="index.php?logout=true"><li>Déconnexion</li></a>';
+
     } elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'DEFAULT') {
-        // Si l'utilisateur est connecté en tant qu'utilisateur non administrateur, affichez des options spécifiques
         echo '<a href="compte.php"><li>Mon compte</li></a>';
         echo '<a href="mesRecettes.php"><li>Mes recettes</li></a>';
         echo '<a href="contact.php"><li>Contact</li></a>';
         echo '<a href="index.php?logout=true"><li>Déconnexion</li></a>';
         
     } else {
-        // Si l'utilisateur n'est pas connecté, affichez seulement l'option "Connexion"
         echo '<a href="connexion.php"><li id="compte-li-connexion">Connexion</li></a>';
         echo '<a href="contact.php"><li>Contact</li></a>';
     }
@@ -160,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <form class="formFL"  method="post">
        <div class ="button_FL">
-        <button type="submit" class="flecheG" name="FL" value="month-1"onclick="rotateRoue(-30)"></button>
+        <button type="submit" class="flecheG" name="FL" onclick="rotateRoue(-30)"></button>
          <select id="mois" name="mois">
           <option value="01">Janvier</option>
           <option value="02">Février</option>
@@ -177,9 +167,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          </select>
         <button type="submit" id="btnFLR" class="button_F" name="F_L" value="Fruit">Fruits</button>
         <button type="submit" id="btnFLR" class="button_L" name="F_L" value="Legume">Légumes</button>
-        <button type="submit" class="flecheD" name="FL" value="month+1" onclick="rotateRoue(30)"></button>
+        <button type="submit" class="flecheD" name="FL" onclick="rotateRoue(30)"></button>
        </div>
       </form>
+      
        <div class ="button_Recettes">
       <a href="Recettes.php" id="btnFLR" class="btn_Recettes" >Recettes</a>
        </div> 

@@ -1,12 +1,13 @@
 <?php declare(strict_types=1);
-session_start();
 
-if (!isset($_SESSION['id'])) {
-    header('Location: error404.php');
-    exit(); 
-  }
+require_once('database.php');
+require_once('session_function.php');
 
-$pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
+$pdo = connectDB();
+startSession();
+updateLastAccess();
+checkSession();
+
 
 if (isset($_GET['id_recettes'])) {
     $id_recette = $_GET['id_recettes'];
@@ -22,7 +23,7 @@ if (isset($_GET['id_recettes'])) {
         $recette = $req_recettes->fetch(PDO::FETCH_ASSOC);
 
 
-        // Maintenant, vous pouvez utiliser les données de la recette pour pré-remplir le formulaire de modification
+        //pré-remplir le formulaire de modification
         $nom = $recette['nom'];
         $duree = $recette['duree'];
         $ingredients = $recette['ingredients'];

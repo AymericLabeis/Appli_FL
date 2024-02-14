@@ -1,11 +1,12 @@
 <?php declare(strict_types=1);
-session_start();
-$pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
 
-if (!isset($_SESSION['id'])) {
-  header('Location: error404.php');
-  exit();
-}
+require_once('database.php');
+require_once('session_function.php');
+
+$pdo = connectDB();
+startSession();
+updateLastAccess();
+checkSession();
 
 $libelle = "";
 $prix = "";

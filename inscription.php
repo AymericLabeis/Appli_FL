@@ -1,5 +1,7 @@
-<?php
-$pdo = new PDO('mysql:host=localhost;dbname=projet_fl', 'root', '');
+<?php declare(strict_types=1);
+
+require_once('database.php');
+$pdo = connectDB();
 
 $name = '';
 $email = '';
