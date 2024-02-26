@@ -8,10 +8,13 @@ startSession();
 updateLastAccess();
 checkSession();
 
+
+
 $nom = '';
 $duree = '';
 $ingredients = '';
 $etapes = '';
+$id_recettes='';
 $error_nom = '';
 $error_duree = '';
 $error_ingredients = '';
@@ -50,7 +53,7 @@ if (!empty($_POST)) {
 
             if (move_uploaded_file($_FILES['img']['tmp_name'], "ressources/img_recette/$filename")) {
               // Envoi réussi, enregistrement du nom de l'image en base de données
-              $req_recettes = $pdo->prepare('INSERT INTO recettes (nom, ingredients, duree, etapes, id_categories, id_users, img) VALUES (:nom, :ingredients, :duree, :etapes, 1, :id_users, :img)');
+              $req_recettes = $pdo->prepare('INSERT INTO recettes (nom, ingredients, duree, etapes, id_users, img) VALUES (:nom, :ingredients, :duree, :etapes, :id_users, :img)');
               $req_recettes->bindParam(':nom', $nom);
               $req_recettes->bindParam(':duree', $duree);
               $req_recettes->bindParam(':ingredients', $ingredients);
@@ -59,12 +62,23 @@ if (!empty($_POST)) {
               $req_recettes->bindParam(':img', $filename);
               $req_recettes->execute();
 
+              // Récupérer l'ID de la recette insérée
+              $id_recettes = $pdo->lastInsertId();
+
               if ($req_recettes->rowCount() > 0) {
-                $success = 'Recette créée avec succès';
-                $nom = '';
-                $duree = '';
-                $ingredients = '';
-                $etapes = '';
+                $req_recettes_categories = $pdo->prepare('INSERT INTO recettes_categories (id_categories, id_recettes) VALUES (1, :id_recettes)');
+                $req_recettes_categories->bindParam(':id_recettes', $id_recettes);
+                $req_recettes_categories->execute();
+
+                if ($req_recettes_categories->rowCount() > 0) {
+                  $success = 'Recette créée avec succès';
+                  $nom = '';
+                  $duree = '';
+                  $ingredients = '';
+                  $etapes = '';
+                } else {
+                  $error_img = 'Une erreur s\'est produite lors de la création de la recette';
+                }
               } else {
                 $error_img = 'Une erreur s\'est produite lors de la création de la recette';
               }
@@ -83,6 +97,7 @@ if (!empty($_POST)) {
     }
   }
 }
+
 ?>
 
 

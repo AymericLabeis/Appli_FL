@@ -88,7 +88,6 @@ header{
  }
  .logo{
   width: 100px;
-  margin-right: 30px; 
   vertical-align: middle; 
   z-index: 1000;  
   border: 3px solid rgb(6, 92, 92);
@@ -99,9 +98,10 @@ header{
 .titre{
   font-family: 'Spicy Rice', Verdana, Geneva, Tahoma, sans-serif;
   letter-spacing: 4px;
-  font-size: 55px;
+  font-size: 60px;
+  font-weight: 300;
   text-align: center;
-  margin-left: 40px;
+  margin-left: 50px;
   z-index: 1000;  
 }
 nav{
@@ -512,7 +512,7 @@ nav{
   color:  rgb(53, 20, 2);
   text-decoration: underline;
  }
- .info h4{
+ #prix{
   font-size: 23px;
   color:rgb(5, 56, 56); 
  }
@@ -588,7 +588,7 @@ nav{
 }
 .container_carte{
   margin-top: 10px;
-  margin-bottom: 110px;
+  margin-bottom: 80px;
  }
  .carte{
   width: 46%; 
@@ -603,7 +603,7 @@ nav{
   font-size: 3vw; 
 }
 
-.info h4 {
+#prix {
   font-size: 4.2vw; 
 }
 
@@ -751,7 +751,7 @@ nav{
   font-size: 1.5vw; 
 }
 
-.info h4 {
+#prix{
   font-size: 2vw; 
 }
 

@@ -4,8 +4,11 @@ require_once('database.php');
 require_once('session_function.php');
 $pdo = connectDB();
 startSession();
+checkAdminSession();
 updateLastAccess();
 checkSession();
+
+
 
 if (isset($_GET['id_fruits_legumes'])) {
     $id_fruits_legumes = $_GET['id_fruits_legumes'];

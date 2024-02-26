@@ -12,9 +12,9 @@ function checkSession() {
         redirectWithError('error404.php');
     }
 
-    $timestampDernierAcces = isset($_COOKIE['last_access']) ? intval($_COOKIE['last_access']) : 0;
+    $timestamp = isset($_COOKIE['last_access']) ? intval($_COOKIE['last_access']) : 0;
 
-    if (time() - $timestampDernierAcces > 300) { 
+    if (time() - $timestamp > 300) { 
         LogOut();
     }
 }
@@ -22,6 +22,11 @@ function checkSession() {
 function redirectWithError($errorPage) {
     header("Location: $errorPage");
     exit();
+}
+function checkAdminSession() {
+    if ($_SESSION['role'] !== 'admin') {
+        redirectWithError('error404.php');
+    }
 }
 
 function LogOut() {

@@ -37,21 +37,24 @@ if (isset($_GET['recette'])) {
   // Récupération des résultats
   $recettes = $recette->fetchAll(PDO::FETCH_ASSOC);
 }
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_POST['categories'])) {
-      $categorie = $_POST['categories'];
- 
-      $recette = $pdo->prepare('SELECT *
-          FROM recettes
-          WHERE id_categories = :categorie
-          ORDER BY  id_recettes DESC');
-      $recette->bindParam(':categorie', $categorie, PDO::PARAM_STR);
+      $categorieId = $_POST['categories'];
+
+      // Requête SQL pour récupérer les recettes en fonction de la catégorie sélectionnée
+      $query = 'SELECT rc.id_recettes, r.*
+                FROM recettes_categories AS rc
+                INNER JOIN recettes as r ON r.id_recettes = rc.id_recettes
+                WHERE rc.id_categories = :categorieId
+                ORDER BY r.id_recettes DESC';
+
+      $recette = $pdo->prepare($query);
+      $recette->bindParam(':categorieId', $categorieId, PDO::PARAM_STR);
       $recette->execute();
       $recettes = $recette->fetchAll(PDO::FETCH_ASSOC);
   }
 }
-
-
 
 ?>
 <!DOCTYPE html >
@@ -84,11 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form class="recherche_Categories" method="post">
         <button class="categories" type="button" onclick=" myCategories()">Catégories</button>
         <ul id="listeC" >
-          <button value="01" type="submit" name="categories">Nouveauté</button>
-          <button value="02" type="submit" name="categories">Fruits</button>
-          <button value="03" type="submit" name="categories">Légumes</button>
-          <button value="04" type="submit" name="categories">Facile</button>
-          <button value="05" type="submit" name="categories">Rapide</button>
+        
+        <button value="01" type="submit" name="categories">Nouveauté</button>
+        <button value="02" type="submit" name="categories">Fruits</button>
+        <button value="03" type="submit" name="categories">Légumes</button>
+        <button value="04" type="submit" name="categories">Facile</button>
+        <button value="05" type="submit" name="categories">Rapide</button>
+
         </ul>
     </form>
    </div>  

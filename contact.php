@@ -22,8 +22,8 @@
 <div class="contact">
  <img class= "portrait" src="ressources/logo2.png" alt="Image du logo">
   <div class= "presentation" >
-   <h2 class="info">Si vous avez des questions ou rencontrez un problème technique, n'hésitez pas à me contacter par e-mail en cliquant sur le lien ci-dessous.</h2> 
-   <h2 class="mail"><a href="mailto:aymeric-labeis@fusioncraft.fr">Envoyer un e-mail</a></h2>
+   <h2>Si vous avez des questions ou rencontrez un problème technique, n'hésitez pas à me contacter par e-mail en cliquant sur le lien ci-dessous.</h2> 
+   <a href="mailto:aymeric-labeis@fusioncraft.fr">Envoyer un e-mail</a>
  </div>
 </div>
   

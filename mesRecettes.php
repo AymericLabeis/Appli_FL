@@ -1,9 +1,8 @@
 <?php declare(strict_types=1);
 
 require_once('database.php');
-require_once('session_function.php');
-
 $pdo = connectDB();
+require_once('session_function.php');
 startSession();
 updateLastAccess();
 checkSession();

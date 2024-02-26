@@ -1,22 +1,22 @@
 <?php declare(strict_types=1);
 
 require_once('database.php');
-require_once('session_function.php');
-
 $pdo = connectDB();
+require_once('session_function.php');
 startSession();
+checkAdminSession();
 updateLastAccess();
 checkSession();
 
-$id_utilisateur = $_SESSION['id'];
-
+/*$id_utilisateur = $_SESSION['id'];
 $query = "SELECT fl.* FROM fruits_legumes fl
           INNER JOIN users u ON fl.id_users = u.id
           WHERE u.id = :id
-          ORDER BY libelle ASC";
+          ORDER BY libelle ASC";*/
 
+$query = "SELECT * FROM fruits_legumes ORDER BY libelle ASC";
 $fruit_legume = $pdo->prepare($query);
-$fruit_legume->bindParam(':id', $id_utilisateur, PDO::PARAM_INT);
+//$fruit_legume->bindParam(':id', $id_utilisateur, PDO::PARAM_INT);
 $fruit_legume->execute();
 $fruits_legumes = $fruit_legume->fetchAll(PDO::FETCH_ASSOC);
 

@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form action="" method="post">
     <div class="form-groupe">
         <label for="utilisateur">Pseudo</label>
-        <input type="text" id="utilisateur" name="utilisateur" placeholder="" value="<?php echo htmlspecialchars($pseudo); ?>">
+        <input type="text" id="utilisateur" name="utilisateur" placeholder="" value="<?php echo htmlspecialchars($pseudo); ?>" autofocus="autofocus">
         <?php if (!empty($error_user)) : ?>
             <div class="error-account"><?= $error_user ?></div>
         <?php endif; ?>
@@ -98,6 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <a href="Recettes.php">Recettes</a>
     </div>
     </footer>
-    <script src="appCompte.js"></script>
+    
 </body> 
 </html>

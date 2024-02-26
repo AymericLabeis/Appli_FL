@@ -5,8 +5,11 @@ require_once('session_function.php');
 
 $pdo = connectDB();
 startSession();
+checkAdminSession();
 updateLastAccess();
 checkSession();
+
+
 
 $libelle = "";
 $prix = "";

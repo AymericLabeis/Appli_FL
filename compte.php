@@ -26,8 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newPassword = $_POST['mdp'];
     $newConfirmPassword = $_POST['mdpconf']; 
 
-    // Effectuez les validations nécessaires sur les données soumises
-
     // Vérifiez si les deux mots de passe correspondent
     if ($newPassword !== $newConfirmPassword) {
         $errorPassword = 'Les mots de passe ne correspondent pas.';
@@ -90,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="form-groupe">
                 <label for="mdp">Mot de passe</label>
-                <input type="password" id="mdp" name="mdp" placeholder="Entrez un nouveau mot de passe" required>
+                <input type="password" id="mdp" name="mdp" placeholder="Entrez un nouveau mot de passe" autofocus="autofocus" required>
                 <img src="ressources/check.svg" alt="icone de validation" class="icone-verif">
                 <span class="message-alerte">Un symbole, une lettre minuscule, un chiffre.</span>
                 <?php if (!empty($errorPassword)) : ?>

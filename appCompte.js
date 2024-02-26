@@ -87,43 +87,39 @@ inpMdp.addEventListener('input', (e) => {
     } 
 
     let testAll = 0;
-    for(const property in objValidation){
-        if(objValidation[property] > 0){
-            testAll++;
-        }
-    }
-    if(testAll < 3){
-        allSpan[2].style.display = "inline";
-        allImg[2].style.display = "inline";
-        allImg[2].src = "ressources/error.svg";
-    } else {
-        allSpan[2].style.display = "none";
-        allImg[2].src = "ressources/check.svg";
-    }
 
+// Compter les propriétés de l'objet objValidation qui ont une valeur supérieure à zéro
+for (const property in objValidation) {
+    if (objValidation[property] > 0) {
+        testAll++;
+    }
+}
 
-    // force mdp
-    if(valeurInp.length <= 6 && valeurInp.length > 0){
-        allLigne[0].style.display = 'block';
-        allLigne[1].style.display = 'none';
-        allLigne[2].style.display = 'none';
-    }
-    else if (valeurInp.length > 6 && valeurInp.length <= 9) {
-        allLigne[0].style.display = 'block';
-        allLigne[1].style.display = 'block';
-        allLigne[2].style.display = 'none';
-    }
-    else if (valeurInp.length > 9) {
-        allLigne[0].style.display = 'block';
-        allLigne[1].style.display = 'block';
-        allLigne[2].style.display = 'block';
-    }
-    else if (valeurInp.length === 0) {
-        allLigne[0].style.display = 'none';
-        allLigne[1].style.display = 'none';
-        allLigne[2].style.display = 'none';
-    }
+// Afficher les messages d'erreur ou de succès en fonction des conditions
+if (testAll < 3 || valeurInp.length < 12) {
+    allSpan[2].style.display = "inline";
+    allImg[2].style.display = "inline";
+    allImg[2].src = "ressources/error.svg";
+} else {
+    allSpan[2].style.display = "none";
+    allImg[2].src = "ressources/check.svg";
+}
 
+// Force MDP
+if (valeurInp.length === 0) {
+    allLigne.forEach(ligne => ligne.style.display = 'none');
+} else if (valeurInp.length < 12) {
+    allLigne[1].style.display = 'none';
+    allLigne[2].style.display = 'none';
+} else if (valeurInp.length < 17 ) {
+    allLigne[0].style.display = 'block';
+    allLigne[1].style.display = 'block';
+    allLigne[2].style.display = 'none';
+} else if (testAll === 3) {
+    allLigne.forEach(ligne => ligne.style.display = 'block');
+}
+
+    
 
 })
 // confirmation

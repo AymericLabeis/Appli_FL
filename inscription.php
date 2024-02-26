@@ -93,11 +93,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </header>
   <div class="box-account">
-    <h1>Inscrivez-vous.</h1>
+    <h1>Inscrivez-vous</h1>
         <form method="post" action="">
             <div class="form-groupe">
                 <label for="utilisateur">Pseudo</label>
-                <input type="text" id="utilisateur" name="utilisateur" placeholder="Entrez un pseudo" maxlength="24"value="<?= htmlspecialchars($name) ?>">
+                <input type="text" id="utilisateur" name="utilisateur" placeholder="Entrez un pseudo" maxlength="24"value="<?= htmlspecialchars($name) ?>"autofocus="autofocus" required>
                 <img src="ressources/check.svg" alt="icone de validation" class="icone-verif">
                 <span class="message-alerte">Choisissez un pseudo entre 3 et 24 caractères.</span>
                 <?php if (!empty($errorName)) : ?>
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="form-groupe">
                 <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" placeholder="Entrez votre e-mail" value="<?= htmlspecialchars($email) ?>">
+                <input type="email" id="email" name="email" placeholder="Entrez votre e-mail" value="<?= htmlspecialchars($email) ?>" required>
                 <img src="ressources/check.svg" alt="icone de validation" class="icone-verif">
                 <span class="message-alerte">Entrez un email valide.</span>
                 <?php if (!empty($errorEmail)) : ?>
